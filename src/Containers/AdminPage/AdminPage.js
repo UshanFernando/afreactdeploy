@@ -8,20 +8,20 @@ class AdminPage extends Component {
         return (
             <div>
                 <Banner name="Administrator"
-                    description="Manage Categories and Store Mangers" />
+                    description="Manage Categories and Store Managers" />
                 <br/>
                 <div className="container">
                     <h2>Manage Categories</h2>
                     <br />
                     <div className="row">
-                        <div class="col-sm ">
+                        <div className="col-sm ">
                             <h4>Product Categories</h4>
                             <CategoryList/>
                         </div>
-                        <div class="col-sm"><h4>
+                        <div className="col-sm"><h4>
                             Add New Categories
                         </h4>
-                            <input type="text" class="form-control" id="name" placeholder="Category Name" />
+                            <input type="text" className="form-control" id="name" placeholder="Category Name" />
                             <br />
                             <button className="button">Add</button>
                         </div>

@@ -8,7 +8,7 @@ const Banner = (props) => {
             <div className="blog-banner">
                 <div className="text-center">
                         <h1>{props.name}</h1>
-                    <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <nav aria-label="breadcrumb" className="banner-breadcrumb">
                             {props.description}
                     </nav>
                 </div>
