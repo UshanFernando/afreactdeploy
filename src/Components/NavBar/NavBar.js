@@ -51,7 +51,7 @@ function NavBar() {
                             <ul className="nav-shop">
                                 <li className="nav-item"><button><i className="ti-search"></i></button></li>
                                 <li className="nav-item"><button><i className="ti-shopping-cart"></i><span className="nav-shop__circle">3</span></button> </li>
-                                <li className="nav-item"><a className="button button-header" href="#">Buy Now</a></li>
+                                <li class="nav-item"><a class="button button-header" href="/login">Login/Register</a></li>
                             </ul>
                         </div>
                     </div>
