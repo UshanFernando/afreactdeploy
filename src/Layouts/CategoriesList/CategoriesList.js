@@ -1,13 +1,13 @@
 import React from 'react'
 import Categoty from '../../Components/Category/Category'
     
-function CategoriesList() {
+const CategoriesList = () =>{
     return (
-        <table className="table">
+        <table className="table overflow-auto" >
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
+                    <th colspan="3" scope="col">Name</th>
                 </tr>
             </thead>
             <tbody>
