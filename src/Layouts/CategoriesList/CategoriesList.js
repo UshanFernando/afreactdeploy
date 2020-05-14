@@ -1,7 +1,13 @@
 import React from 'react'
 import Categoty from '../../Components/Category/Category'
     
-const CategoriesList = () =>{
+const CategoriesList = (props) => {
+    let categoryRender = null;
+    if (props.categories != null) {
+        categoryRender = props.categories.map((category,index) => {
+            return <Categoty id={index+1} name={category.name} key={category._id}/>
+        })
+    }
     return (
         <table className="table overflow-auto" >
             <thead>
@@ -11,13 +17,8 @@ const CategoriesList = () =>{
                 </tr>
             </thead>
             <tbody>
-                <Categoty id={1} name="Shoe" />
-                <Categoty id={2} name="Dress"/>
-                <Categoty id={3} name="Watch"/>
-                <Categoty id={4} name="Beauty"/>
-                <Categoty id={4} name="Beauty" />
-                <Categoty id={4} name="Beauty" />
-                <Categoty id={4} name="Beauty"/>
+                
+                {categoryRender}
             </tbody>
         </table>
     )

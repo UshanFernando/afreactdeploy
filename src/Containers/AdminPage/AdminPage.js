@@ -10,6 +10,16 @@ class AdminPage extends Component {
     super(props);
     this.category = React.createRef();
     this.manager = React.createRef();
+    this.loadCategories = this.loadCategories.bind(this);
+    this.addCategory = this.addCategory.bind(this);
+    this.state = {
+      categoryName: "",
+      categories: null,
+    };
+  }
+
+  async componentDidMount() {
+    this.loadCategories();
   }
 
   render() {
@@ -33,7 +43,7 @@ class AdminPage extends Component {
             <div className="col-sm ">
               <h4 className="pt-4 ">Product Categories</h4>
               <div className="listScrollable">
-                <CategoryList />
+                <CategoryList categories={this.state.categories} />
               </div>
             </div>
             <div className="col-sm">
@@ -43,13 +53,17 @@ class AdminPage extends Component {
                 className="form-control"
                 id="name"
                 placeholder="Category Name"
+                value={this.state.categoryName}
+                onChange={this.categoryNameInputChange}
               />
               <br />
-              <button className="button">Add</button>
+              <button onClick={this.addCategory} className="button">
+                Add
+              </button>
             </div>
           </div>
-          <br/>
-          <hr className="mt-4 mb-4"/>
+          <br />
+          <hr className="mt-4 mb-4" />
 
           <h2 ref={this.manager} className="pt-4 mt-4">
             Manage Store Managers
@@ -68,8 +82,49 @@ class AdminPage extends Component {
   }
 
   scrollToCategories = () =>
-    window.scrollTo(0, this.category.current.offsetTop-100);
-  scrollToManagers = () => window.scrollTo(0, this.manager.current.offsetTop-100);
+    window.scrollTo(0, this.category.current.offsetTop - 100);
+  scrollToManagers = () =>
+    window.scrollTo(0, this.manager.current.offsetTop - 100);
+
+  async addCategory() {
+    if (this.state.categoryName.trim() != 0) {
+      try {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: this.state.categoryName }),
+        };
+         await fetch(
+          "http://localhost:5000/admin/category",
+          requestOptions
+        );
+        this.loadCategories();
+        this.setState({
+          categoryName: "",
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+
+  async loadCategories() {
+    try {
+      const res = await fetch("http://localhost:5000/admin/category");
+      const data = await res.json();
+      //updateing state with lastest data
+      this.setState({
+        categories: data,
+      });
+    } catch (e) {
+      //if failed to communicate with api this code block will run
+      console.log(e);
+    }
+  }
+
+  categoryNameInputChange = (e) => {
+    this.setState({ categoryName: e.target.value });
+  };
 }
 
 export default AdminPage;
