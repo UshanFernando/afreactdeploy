@@ -8,6 +8,7 @@ import SingleProduct from './Containers/SingleProduct'
 import AdminPage from './Containers/AdminPage/AdminPage'
 import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
+import Register from './Containers/Register';
 class App extends Component {
 
   render() {
@@ -24,6 +25,9 @@ class App extends Component {
             </Route >
             <Route path="/AdminPage">
               <AdminPage />
+            </Route >
+            <Route path="/Register">
+              <Register />
             </Route >
           </Switch>
         </Router>
