@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import {BrowserRouter as Router,Switch,Route,Link} from 'react-router-dom';
 
 
-import Login from './Containers/Login';
-import Register from './Containers/Register';
+import Login from '../../Containers/Login';
+import Register from '../../Containers/Register';
 import { render } from '@testing-library/react';
 
 // function NavBar() {
@@ -50,10 +50,10 @@ class NavBar extends Component{
                                     <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                         aria-expanded="false">Pages</a>
                                     <ul className="dropdown-menu">
-                                        <Link to={'/Login'} className="nav-link">Sign in</Link>
-                                        <li className="nav-item"><a className="nav-link" href="login.html">Login</a></li>
-                                        <li className="nav-item"><a className="nav-link" href="register.html">Register</a></li>
-                                        <li className="nav-item"><a className="nav-link" href="tracking-order.html">Tracking</a></li>
+                                        
+                                        <li><Link to={'/Login'} className="nav-link">Login</Link></li>
+                                        <li><Link to={'/Register'} className="nav-link">Register</Link></li>
+                                        
                                     </ul>
                                 </li>
                                 <li className="nav-item"><a className="nav-link" href="contact.html">Contact</a></li>

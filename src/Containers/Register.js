@@ -24,26 +24,36 @@ render(){
 					<div class="login_form_inner register_form_inner">
 						<h3>Create an account</h3>
 						<form class="row login_form" action="#/" id="register_form" >
+
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                placeholder="First Name" onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'First Name'"/>
 							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'"/>
-              </div>
-              <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
-              </div>
-              <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'"/>
+
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="name" name="name" 
+                                placeholder="Last Name" onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Last Name'"/>
 							</div>
+
 							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector"/>
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div>
+                                <input type="text" class="form-control" id="email" name="email" 
+                                placeholder="Email Address" onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Email Address'"/>
+                            </div>
+
+
+                            <div class="col-md-12 form-group">
+                                <input type="password" class="form-control" id="password" name="password" 
+                                placeholder="Password" onfocus="this.placeholder = ''" 
+                                onblur="this.placeholder = 'Password'"/>
+                            </div>
+              
+							
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="button button-register w-100">Register</button>
+                                <button type="submit" value="submit" 
+                                class="button button-register w-100">Register</button>
 							</div>
 						</form>
 					</div>
