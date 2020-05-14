@@ -11,8 +11,7 @@ import { render } from '@testing-library/react';
 class NavBar extends Component{
     render(){
     return (
-        
-<Router>
+
         <header className="header_area fixed">
             <div className="main_menu">
                 <nav className="navbar navbar-expand-lg navbar-light">
@@ -49,12 +48,6 @@ class NavBar extends Component{
                                 <li className="nav-item submenu dropdown">
                                     <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                         aria-expanded="false">Pages</a>
-                                    <ul className="dropdown-menu">
-                                        
-                                        <li><Link to={'/Login'} className="nav-link">Login</Link></li>
-                                        <li><Link to={'/Register'} className="nav-link">Register</Link></li>
-                                        
-                                    </ul>
                                 </li>
                                 <li className="nav-item"><a className="nav-link" href="contact.html">Contact</a></li>
 
@@ -71,11 +64,6 @@ class NavBar extends Component{
                 </nav>
             </div>
         </header>
-        <Switch>
-          <Route exact path='/Login' component={Login}/>
-          <Route exact path='/Register' component={Register}/>
-        </Switch>
-      </Router>
     );
         }
     }

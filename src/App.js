@@ -14,18 +14,17 @@ class App extends Component {
     return (
       <Wrapper>
         <NavBar />
-        <AdminPage />
-        <Login/>
-         <NavBar />
         <Router>
           <Switch>
             <Route path="/sp">
               <SingleProduct/>
             </Route >
+            <Route path="/login">
+              <Login />
+            </Route >
             <Route path="/AdminPage">
               <AdminPage />
             </Route >
-            <Redirect to="/AdminPage" />
           </Switch>
         </Router>
        
