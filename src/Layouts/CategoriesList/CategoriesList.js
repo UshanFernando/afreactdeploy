@@ -15,7 +15,9 @@ const CategoriesList = () =>{
                 <Categoty id={2} name="Dress"/>
                 <Categoty id={3} name="Watch"/>
                 <Categoty id={4} name="Beauty"/>
-                
+                <Categoty id={4} name="Beauty" />
+                <Categoty id={4} name="Beauty" />
+                <Categoty id={4} name="Beauty"/>
             </tbody>
         </table>
     )

@@ -1,0 +1,8 @@
+.listScrollable{
+    height: 400px;
+    overflow: auto;
+}
+.analytic{
+    max-width: 300px;
+    min-width: 200px;
+}

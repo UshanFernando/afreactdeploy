@@ -3,7 +3,7 @@ import React from 'react'
 function NavBar() {
     return (
 
-        <header className="header_area">
+        <header className="header_area fixed">
             <div className="main_menu">
                 <nav className="navbar navbar-expand-lg navbar-light">
                     <div className="container">

@@ -15,15 +15,12 @@ class App extends Component {
          <NavBar />
         <Router>
           <Switch>
-
-
             <Route path="/sp">
               <SingleProduct/>
             </Route >
             <Route path="/AdminPage">
               <AdminPage />
             </Route >
-
             <Redirect to="/AdminPage" />
           </Switch>
         </Router>
