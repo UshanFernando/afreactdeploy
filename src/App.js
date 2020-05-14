@@ -6,6 +6,7 @@ import Wrapper from './Hoc/Wrapper'
 import NavBar from './Components/NavBar/NavBar'
 import SingleProduct from './Containers/SingleProduct'
 import AdminPage from './Containers/AdminPage/AdminPage'
+import Home from './Containers/Home/Home'
 import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
 import Register from './Containers/Register';
@@ -28,6 +29,9 @@ class App extends Component {
             </Route >
             <Route path="/Register">
               <Register />
+            </Route >
+            <Route path="/Home">
+              <Home />
             </Route >
           </Switch>
         </Router>

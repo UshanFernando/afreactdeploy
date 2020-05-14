@@ -25,7 +25,7 @@ class NavBar extends Component{
                         </button>
                         <div className="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul className="nav navbar-nav menu_nav ml-auto mr-auto">
-                                <li className="nav-item active"><a className="nav-link" href="index.html">Home</a></li>
+                                <li className="nav-item active"><a className="nav-link" href="Home">Home</a></li>
                                 <li className="nav-item submenu dropdown">
                                     <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                         aria-expanded="false">Shop</a>
