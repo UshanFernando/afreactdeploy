@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function NavBar() {
+import {BrowserRouter as Router,Switch,Route,Link} from 'react-router-dom';
+
+
+import Login from './Containers/Login';
+import Register from './Containers/Register';
+import { render } from '@testing-library/react';
+
+// function NavBar() {
+class NavBar extends Component{
+    render(){
     return (
-
+        
+<Router>
         <header className="header_area">
             <div className="main_menu">
                 <nav className="navbar navbar-expand-lg navbar-light">
@@ -40,12 +50,15 @@ function NavBar() {
                                     <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                         aria-expanded="false">Pages</a>
                                     <ul className="dropdown-menu">
+                                        <Link to={'/Login'} className="nav-link">Sign in</Link>
                                         <li className="nav-item"><a className="nav-link" href="login.html">Login</a></li>
                                         <li className="nav-item"><a className="nav-link" href="register.html">Register</a></li>
                                         <li className="nav-item"><a className="nav-link" href="tracking-order.html">Tracking</a></li>
                                     </ul>
                                 </li>
                                 <li className="nav-item"><a className="nav-link" href="contact.html">Contact</a></li>
+
+                             
                             </ul>
 
                             <ul className="nav-shop">
@@ -58,8 +71,14 @@ function NavBar() {
                 </nav>
             </div>
         </header>
+        <Switch>
+          <Route exact path='/Login' component={Login}/>
+          <Route exact path='/Register' component={Register}/>
+        </Switch>
+      </Router>
+    );
+        }
+    }
 
-    )
-}
 
 export default NavBar
