@@ -4,11 +4,12 @@ import StoreManagersList from "../../Layouts/StoreMangersList/StoreManagersList"
 import RegisterNewStoreManager from "../../Layouts/RegisterNewStoreManager/RegisterNewStoreManager";
 import Banner from "../../Components/Banner/Banner";
 import "./AdminPage.css";
-
+import SiteOverviewAdmin from "../../Components/SiteOverviewAdmin/SiteOverviewAdmin";
 class AdminPage extends Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
+    this.category = React.createRef();
+    this.manager = React.createRef();
   }
 
   render() {
@@ -17,49 +18,17 @@ class AdminPage extends Component {
         <Banner
           name="Administrator"
           description="Manage Categories and Store Managers"
+          admin={true}
+          scrollAdminCategories={this.scrollToCategories}
+          scrollAdminManagers={this.scrollToManagers}
         />
-
+        <br />
         <div className="container pt-4">
-          <div className="row centered">
-            <div className="card col-sm border-success m-3 analytic">
-              <div className="card-body text-success text-center">
-                <h4>
-                  <i className="fa fa-users" aria-hidden="true"></i>
-                </h4>
-                <h6 className="card-title">No Of Registered Users</h6>
-                <h4 className="display-4">21</h4>
-              </div>
-            </div>
-
-            <div className="card col-sm border-info m-3 analytic">
-              <div className="card-body text-success text-center">
-                <h4>
-                  <i className="fa fa-shopping-bag" aria-hidden="true"></i>
-                </h4>
-                <h6 className="card-title">No Of Products</h6>
-                <h4 className="display-4">21</h4>
-              </div>
-            </div>
-            <div className="card col-sm border-warning m-3 analytic">
-              <div className="card-body text-success text-center">
-                <h4>
-                  <i className="fa fa-tags" aria-hidden="true"></i>
-                </h4>
-                <h6 className="card-title">No Of Categories</h6>
-                <h4 className="display-4">21</h4>
-              </div>
-            </div>
-            <div className="card col-sm border-danger m-3 analytic">
-              <div className="card-body text-success text-center">
-                <h4>
-                  <i className="fa fa-user-plus" aria-hidden="true"></i>
-                </h4>
-                <h6 className="card-title">No Of Store Managers</h6>
-                <h4 className="display-4">21</h4>
-              </div>
-            </div>
-          </div>
-          <h2 className="pt-4">Manage Categories</h2>
+          <SiteOverviewAdmin />
+          <br />
+          <h2 ref={this.category} className="pt-4 mt-4">
+            Manage Categories
+          </h2>
           <div className="row">
             <div className="col-sm ">
               <h4 className="pt-4 ">Product Categories</h4>
@@ -79,8 +48,12 @@ class AdminPage extends Component {
               <button className="button">Add</button>
             </div>
           </div>
-          <hr />
-          <h2 className="pt-4">Manage Store Managers</h2>
+          <br/>
+          <hr className="mt-4 mb-4"/>
+
+          <h2 ref={this.manager} className="pt-4 mt-4">
+            Manage Store Managers
+          </h2>
 
           <h4 className="pt-4">Register New Store Managers</h4>
           <RegisterNewStoreManager />
@@ -93,6 +66,10 @@ class AdminPage extends Component {
       </div>
     );
   }
+
+  scrollToCategories = () =>
+    window.scrollTo(0, this.category.current.offsetTop-100);
+  scrollToManagers = () => window.scrollTo(0, this.manager.current.offsetTop-100);
 }
 
 export default AdminPage;
