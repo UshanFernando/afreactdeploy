@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import './App.css';
 import Wrapper from './Hoc/Wrapper'
 import NavBar from './Components/NavBar/NavBar'
+import  StoreManagerDashBoard from './Containers/StoreManager/StoreManagerDashBoard'
+import  ProductsAdding from './Containers/StoreManager/ProductsAdding'
+import  ListProducts from './Containers/StoreManager/ListProducts'
 import SingleProduct from './Containers/SingleProduct'
 import AdminPage from './Containers/AdminPage/AdminPage'
 import Home from './Containers/Home/Home'
@@ -33,6 +36,17 @@ class App extends Component {
             <Route path="/Home">
               <Home />
             </Route >
+            <Route path="/StoreManagerDashBoard">
+              <StoreManagerDashBoard/>
+            </Route >
+          <Route path="/Stockmanager/addingProducts">
+          <ProductsAdding/>
+          </Route>
+          <Route path="/Stockmanager/listproducts">
+             <ListProducts/>
+
+          </Route>
+
           </Switch>
         </Router>
        
