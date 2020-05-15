@@ -25,6 +25,8 @@ render(){
 						<h3>Create an account</h3>
 						<form class="row login_form" action="#/" id="register_form" >
 
+						
+							
 							<div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="name" name="name" 
                                 placeholder="First Name" onfocus="this.placeholder = ''" 
