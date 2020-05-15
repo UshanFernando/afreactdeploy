@@ -14,3 +14,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+#commentFrmBtn {
+  font-size: 100%;
+  
+  border: 0;
+  color: blue;
+  padding: 0;
+}
