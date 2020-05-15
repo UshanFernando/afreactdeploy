@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import $ from 'jquery'
+
+
+
 
 class Home extends Component{
 
@@ -13,7 +17,7 @@ class Home extends Component{
         <div class="row no-gutters align-items-center pt-60px">
           <div class="col-5 d-none d-sm-block">
             <div class="hero-banner__img">
-              <img class="img-fluid" src="img/home/hero-banner.png" alt=""/>
+              <img src={require('../../Components/img/hero-banner.png')} />
             </div>
           </div>
           <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
@@ -32,21 +36,21 @@ class Home extends Component{
     <section class="section-margin mt-0">
       <div class="owl-carousel owl-theme hero-carousel">
         <div class="hero-carousel__slide">
-          <img src="img/home/hero-slide1.png" alt="" class="img-fluid"/>
+        <img src={require('../../Components/img/hero-slide1.png')} />
           <a href="#" class="hero-carousel__slideOverlay">
             <h3>Wireless Headphone</h3>
             <p>Accessories Item</p>
           </a>
         </div>
         <div class="hero-carousel__slide">
-          <img src="img/home/hero-slide2.png" alt="" class="img-fluid"/>
+        <img src={require('../../Components/img/hero-slide2.png')} />
           <a href="#" class="hero-carousel__slideOverlay">
             <h3>Wireless Headphone</h3>
             <p>Accessories Item</p>
           </a>
         </div>
         <div class="hero-carousel__slide">
-          <img src="img/home/hero-slide3.png" alt="" class="img-fluid"/>
+        <img src={require('../../Components/img/hero-slide3.png')} />
           <a href="#" class="hero-carousel__slideOverlay">
             <h3>Wireless Headphone</h3>
             <p>Accessories Item</p>
@@ -66,7 +70,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product1.png" alt=""/>
+              <img src={require('../../Components/img/product1.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -83,7 +87,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product2.png" alt=""/>
+              <img src={require('../../Components/img/product2.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -100,7 +104,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product3.png" alt=""/>
+              <img src={require('../../Components/img/product3.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -117,7 +121,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product4.png" alt=""/>
+              <img src={require('../../Components/img/product4.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -134,7 +138,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product5.png" alt=""/>
+              <img src={require('../../Components/img/product5.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -151,7 +155,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product6.png" alt=""/>
+              <img src={require('../../Components/img/product6.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -168,7 +172,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product7.png" alt=""/>
+              <img src={require('../../Components/img/product7.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -185,7 +189,7 @@ class Home extends Component{
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="img/product/product8.png" alt=""/>
+              <img src={require('../../Components/img/product8.png')} />
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -227,7 +231,7 @@ class Home extends Component{
         <div class="owl-carousel owl-theme" id="bestSellerCarousel">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product1.png" alt=""/>
+            <img src={require('../../Components/img/product1.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -243,7 +247,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product2.png" alt=""/>
+            <img src={require('../../Components/img/product2.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -259,7 +263,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product3.png" alt=""/>
+            <img src={require('../../Components/img/product3.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -275,7 +279,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product4.png" alt=""/>
+            <img src={require('../../Components/img/product4.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -291,7 +295,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product1.png" alt=""/>
+            <img src={require('../../Components/img/product1.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -307,7 +311,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product2.png" alt=""/>
+            <img src={require('../../Components/img/product2.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -323,7 +327,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product3.png" alt=""/>
+            <img src={require('../../Components/img/product3.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -339,7 +343,7 @@ class Home extends Component{
 
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="img/product/product4.png" alt=""/>
+            <img src={require('../../Components/img/product4.png')} />
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
