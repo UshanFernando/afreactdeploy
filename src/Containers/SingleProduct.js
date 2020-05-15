@@ -22,6 +22,7 @@ import CommentForm from '../Components/SingleProduct/CommentForm';
 				message:"",
 				rating:0,
 				user:0,
+				tab:3,
 			  	comments: null,
 			};
 			
@@ -48,10 +49,144 @@ import CommentForm from '../Components/SingleProduct/CommentForm';
 		  handleChange(event) {
 			this.setState({value: event.target.value});
 		  }
-		
+		  handleProductTabs(num) {
+        
+			this.setState({
+				tab:num
+			
+			});
+		  }
 		 
 
 	render(){
+		let tab ;
+	if(this.state.tab==1){
+		tab= <div className=" " id="profile" role="" aria-labelledby="">
+		<div className="table-responsive">
+			<table className="table">
+				<tbody>
+					
+			  
+						<tr>
+						  <td>
+								<h5></h5>
+						 </td>
+						   <td>
+							  <h5></h5>
+						</td>
+						 
+						</tr>
+					  
+						
+					
+					<tr>
+						<td>
+							<h5>Each Box contains</h5>
+						</td>
+						<td>
+							<h5>60pcs</h5>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	}else if(this.state.tab==2){
+		tab= <div className="" id="home" role="tabpanel" aria-labelledby="home-tab">
+		<p id="Test"><h1>Moda Senula</h1></p>
+		
+	</div>
+	}else{
+		tab= <div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+		<div className="row">
+			<div className="col-lg-6">
+				<div className="row total_rate">
+					<div className="col-6">
+						<div className="box_total">
+							<h5>Overall</h5>
+							<h4>4.0</h4>
+							<h6>(03 Reviews)</h6>
+						</div>
+					</div>
+					<div className="col-6">
+						<div className="rating_list">
+							<h3>Based on 3 Reviews</h3>
+							<ul className="list">
+								<li><a href="#">5 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
+										 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
+								<li><a href="#">4 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
+										 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
+								<li><a href="#">3 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
+										 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
+								<li><a href="#">2 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
+										 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
+								<li><a href="#">1 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
+										 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div className="review_list">
+					<div className="review_item">
+						<div className="media">
+							<div className="d-flex">
+								<img src="img/product/review-1.png" alt=""/>
+							</div>
+							<div className="media-body">
+								<h4>Blake Ruiz</h4>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+							</div>
+						</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							commodo</p>
+					</div>
+					<div className="review_item">
+						<div className="media">
+							<div className="d-flex">
+								<img src="img/product/review-2.png" alt=""/>
+							</div>
+							<div className="media-body">
+								<h4>Blake Ruiz</h4>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+							</div>
+						</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							commodo</p>
+					</div>
+					<div className="review_item">
+						<div className="media">
+							<div className="d-flex">
+								<img src="img/product/review-3.png" alt=""/>
+							</div>
+							<div className="media-body">
+								<h4>Blake Ruiz</h4>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+								<i className="fa fa-star"></i>
+							</div>
+						</div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							commodo</p>
+					</div>
+				</div>
+			</div>
+			<CommentForm/>
+		</div>
+	</div>
+	}
     return (
         <div>
 	<section className="blog-banner-area" id="blog">
@@ -139,201 +274,23 @@ import CommentForm from '../Components/SingleProduct/CommentForm';
 		<div className="container" >
 			<ul className="nav nav-tabs" id="myTab" role="tablist">
 				<li className="nav-item">
-					<a className="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Overview</a>
+					<a className="nav-link" onClick={() => this.handleProductTabs(1)} id="home-tab" data-toggle="tab" href role="tab" aria-controls="home" aria-selected="true">Overview</a>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					<a className="nav-link" onClick={() => this.handleProductTabs(2)} id="profile-tab" data-toggle="tab" href role="tab" aria-controls="profile"
 					 aria-selected="false">Specification</a>
 				</li>
+				
 				<li className="nav-item">
-					<a className="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-					 aria-selected="false">Comments</a>
-				</li>
-				<li className="nav-item">
-					<a className="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					<a className="nav-link active" onClick={() => this.handleProductTabs(3)} id="review-tab" data-toggle="tab" href role="tab" aria-controls="review"
 					 aria-selected="false">Reviews</a>
 				</li>
 			</ul>
 			<div className="tab-content" id="myTabContent">
-				<div className="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <p id="Test"></p>
-                    
-				</div>
-				<div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div className="table-responsive">
-						<table className="table">
-							<tbody>
-								
-                          
-                                    <tr>
-                                      <td>
-                                            <h5></h5>
-                                     </td>
-                                       <td>
-                                          <h5></h5>
-                                    </td>
-                                     
-                                    </tr>
-                                  
-									
-								
-								<tr>
-									<td>
-										<h5>Each Box contains</h5>
-									</td>
-									<td>
-										<h5>60pcs</h5>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div className="row">
-						<div className="col-lg-6">
-							<div className="comment_list">
-								<div className="review_item">
-									<div className="media">
-										<div className="d-flex">
-											<img src="img/product/review-1.png" alt=""/>
-										</div>
-										<div className="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a className="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div className="review_item reply">
-									<div className="media">
-										<div className="d-flex">
-											<img src="img/product/review-2.png" alt=""/>
-										</div>
-										<div className="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a className="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div className="review_item">
-									<div className="media">
-										<div className="d-flex">
-											<img src="img/product/review-3.png" alt=""/>
-										</div>
-										<div className="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a className="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-							</div>
-						</div>
-						<div className="col-lg-6">
-							
-						</div>
-					</div>
-				</div>
-				<div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-					<div className="row">
-						<div className="col-lg-6">
-							<div className="row total_rate">
-								<div className="col-6">
-									<div className="box_total">
-										<h5>Overall</h5>
-										<h4>4.0</h4>
-										<h6>(03 Reviews)</h6>
-									</div>
-								</div>
-								<div className="col-6">
-									<div className="rating_list">
-										<h3>Based on 3 Reviews</h3>
-										<ul className="list">
-											<li><a href="#">5 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-													 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-											<li><a href="#">4 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-													 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-											<li><a href="#">3 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-													 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-											<li><a href="#">2 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-													 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-											<li><a href="#">1 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-													 className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div className="review_list">
-								<div className="review_item">
-									<div className="media">
-										<div className="d-flex">
-											<img src="img/product/review-1.png" alt=""/>
-										</div>
-										<div className="media-body">
-											<h4>Blake Ruiz</h4>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div className="review_item">
-									<div className="media">
-										<div className="d-flex">
-											<img src="img/product/review-2.png" alt=""/>
-										</div>
-										<div className="media-body">
-											<h4>Blake Ruiz</h4>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div className="review_item">
-									<div className="media">
-										<div className="d-flex">
-											<img src="img/product/review-3.png" alt=""/>
-										</div>
-										<div className="media-body">
-											<h4>Blake Ruiz</h4>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-											<i className="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-							</div>
-						</div>
-						<CommentForm/>
-					</div>
-				</div>
+				{tab}
+				
+				
+				
 			</div>
 		</div>
 	</section>
