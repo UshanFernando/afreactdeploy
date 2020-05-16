@@ -55,7 +55,7 @@ class Register extends Component {
 				fname: "",
 				lname: "",
 				email: "",
-				password: 0,
+				password: "",
 			});
 		  } catch (e) {
 			console.log(e);
