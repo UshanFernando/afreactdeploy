@@ -1,8 +1,67 @@
-import React, { Component } from 'react'
+import React, { Component, useReducer } from 'react'
 
 
 
 class Register extends Component {
+
+	constructor(props) {
+		super(props);
+		
+		this.addRegister = this.addRegister.bind(this);
+		this.onChange = this.onChange.bind(this);
+		this.state = {
+		utype:"user",
+		  fname: "",
+		  lname: "",
+		  email: "",
+		  password: ""
+		};
+	  }
+
+	  onChange(event) {
+        const target = event.target;
+        const value =  target.value
+		const name= target.name;
+	
+       
+        this.setState({
+            [name]:value
+        
+        });
+      }
+
+	  async addRegister(event) {
+
+		event.preventDefault();
+		if (this.state.fname.trim() != 0) {
+		  try {
+			const requestOptions = {
+			  method: "POST",
+			  headers: { "Content-Type": "application/json" },
+			  body: JSON.stringify({ 
+				utype:this.state.utype,
+				  fname: this.state.fname, 
+				  lname: this.state.lname,
+				  email: this.state.email,
+				  password: this.state.password
+				}),
+			};
+			 await fetch(
+			  "http://localhost:5000/register/register",
+			  requestOptions
+			);
+			// this.loadCategories();
+			this.setState({
+				fname: "",
+				lname: "",
+				email: "",
+				password: 0,
+			});
+		  } catch (e) {
+			console.log(e);
+		  }
+		}
+	  }
 
 render(){
 
@@ -23,39 +82,48 @@ render(){
 				<div class="col-lg-6">
 					<div class="login_form_inner register_form_inner">
 						<h3>Create an account</h3>
-						<form class="row login_form" action="#/" id="register_form" >
+						<form class="row login_form"  id="register_form" onSubmit={this.addRegister}>
 
 						
 							
 							<div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="name" name="name" 
+                                <input type="text" class="form-control" id="name" name="fname" 
                                 placeholder="First Name" onfocus="this.placeholder = ''" 
-                                onblur="this.placeholder = 'First Name'"/>
+                                onblur="this.placeholder = 'First Name'"
+								value={this.state.fname}
+                				onChange={this.onChange}/>
 							</div>
 
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="name" name="name" 
+                                <input type="text" class="form-control" id="name" name="lname" 
                                 placeholder="Last Name" onfocus="this.placeholder = ''" 
-                                onblur="this.placeholder = 'Last Name'"/>
+                                onblur="this.placeholder = 'Last Name'"
+								value={this.state.lname}
+                				onChange={this.onChange}/>
 							</div>
 
 							<div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="email" name="email" 
                                 placeholder="Email Address" onfocus="this.placeholder = ''" 
-                                onblur="this.placeholder = 'Email Address'"/>
+                                onblur="this.placeholder = 'Email Address'"
+								value={this.state.email}
+                				onChange={this.onChange}/>
                             </div>
 
 
                             <div class="col-md-12 form-group">
                                 <input type="password" class="form-control" id="password" name="password" 
                                 placeholder="Password" onfocus="this.placeholder = ''" 
-                                onblur="this.placeholder = 'Password'"/>
+                                onblur="this.placeholder = 'Password'"
+								value={this.state.password}
+                				onChange={this.onChange}/>
                             </div>
               
 							
 							<div class="col-md-12 form-group">
                                 <button type="submit" value="submit" 
-                                class="button button-register w-100">Register</button>
+                                class="button button-register w-100"
+								onClick={this.addRegister}>Register</button>
 							</div>
 						</form>
 					</div>
@@ -68,5 +136,7 @@ render(){
         </div>
     )
 }
+
+
 }
 export default Register;
