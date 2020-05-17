@@ -1,6 +1,14 @@
 import React from "react";
 import Wrapper from '../../Hoc/Wrapper'
-const SiteOverviewAdmin = () => {
+const SiteOverviewAdmin = (props) => {
+  let noUsers = null;
+  let noCategories = null;
+
+  if (props.stats != null) {
+    noUsers = props.stats.users;
+    noCategories = props.stats.categories;
+
+  }
   return (
     <Wrapper>
       <div className="row centered">
@@ -10,7 +18,7 @@ const SiteOverviewAdmin = () => {
               <i className="fa fa-users" aria-hidden="true"></i>
             </h4>
             <h6 className="card-title">No Of Registered Users</h6>
-            <h4 className="display-4">21</h4>
+            <h4 className="display-4">{noUsers==null?'N/A':noUsers}</h4>
           </div>
         </div>
 
@@ -29,7 +37,7 @@ const SiteOverviewAdmin = () => {
               <i className="fa fa-tags" aria-hidden="true"></i>
             </h4>
             <h6 className="card-title">No Of Categories</h6>
-            <h4 className="display-4">21</h4>
+            <h4 className="display-4">{noCategories==null?'N/A':noCategories}</h4>
           </div>
         </div>
         <div className="card col-sm border-danger m-3 analytic">

@@ -12,19 +12,23 @@ class AdminPage extends Component {
     this.manager = React.createRef();
     this.loadCategories = this.loadCategories.bind(this);
     this.addCategory = this.addCategory.bind(this);
+    this.loadStats = this.loadStats.bind(this);
     this.state = {
       categoryName: "",
       categories: null,
+      stats : null
     };
   }
 
   async componentDidMount() {
     this.loadCategories();
+    this.loadStats();
   }
 
   render() {
     return (
       <div>
+        
         <Banner
           name="Administrator"
           description="Manage Categories and Store Managers"
@@ -34,7 +38,7 @@ class AdminPage extends Component {
         />
         <br />
         <div className="container pt-4">
-          <SiteOverviewAdmin />
+          <SiteOverviewAdmin stats={this.state.stats}/>
           <br />
           <h2 ref={this.category} className="pt-4 mt-4">
             Manage Categories
@@ -65,7 +69,6 @@ class AdminPage extends Component {
           </div>
           <br />
           <hr className="mt-4 mb-4" />
-
           <h2 ref={this.manager} className="pt-4 mt-4">
             Manage Store Managers
           </h2>
@@ -88,7 +91,7 @@ class AdminPage extends Component {
     window.scrollTo(0, this.manager.current.offsetTop - 100);
 
   async addCategory() {
-    if (this.state.categoryName.trim() != 0) {
+    if (this.state.categoryName.trim() !== 0) {
       try {
         const requestOptions = {
           method: "POST",
@@ -116,6 +119,20 @@ class AdminPage extends Component {
       //updateing state with lastest data
       this.setState({
         categories: data,
+      });
+    } catch (e) {
+      //if failed to communicate with api this code block will run
+      console.log(e);
+    }
+  }
+
+  async loadStats() {
+    try {
+      const res = await fetch("http://localhost:5000/admin/stats");
+      const data = await res.json();
+      //updateing state with lastest data
+      this.setState({
+        stats: data,
       });
     } catch (e) {
       //if failed to communicate with api this code block will run
