@@ -80,6 +80,7 @@ class CommentForm extends Component {
             }
           }
         }
+        this.props.refComments();
         
       }	
 
