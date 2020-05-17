@@ -7,8 +7,10 @@ class CommentView extends Component {
         super(props);
     
         this.state = {
+            id:"",
             name: "",
             message:"",
+            edit:"disabled",
             rating:0,
             avg:0.0,
             oneStars:0,
@@ -16,7 +18,7 @@ class CommentView extends Component {
             threeStars:0,
             fourStars:0,
             fiveStars:0,
-
+            edit:false,
             comments:[]
         };
         //this.handleChange = this.handleChange.bind(this);
@@ -30,6 +32,7 @@ class CommentView extends Component {
         try {
           const res = await fetch("http://localhost:5000/comment/comments");
           const data = await res.json();
+          
           //updateing state with lastest data
           this.setState({
             comments: data,
@@ -70,24 +73,48 @@ class CommentView extends Component {
 
 
       }
+      editComment(index){
+        console.log(this.state.comments[index].name);
+      }
+      handleChange(index,event) {
+        const val=event.target.value;
+        const items = this.state.comments;
+        items.map(item => {
+        if (item._id === index) {
+        item.message = val;
+      }
+      this.setState({
+        comments: items
+      })
+    })
+        
+       
+       
+      }
       
     render() {
         let commentList=null;
+        const user = require('../img/User/USER.png');
         
         if (this.state.comments != null) {
             commentList = this.state.comments.map((comment,index) => {
-                return (<div className="review_item">
+                return (<div className="review_item" key={index}>
                 <div className="media">
                     <div className="d-flex">
-                        <img src="img/product/review-1.png" alt="" />
+                        <img id="userImg" src={user} alt="aa" />
                     </div>
+                    
                     <div className="media-body">
+                    
                         <h4>{comment.name}</h4>
                         <StarSeries  count={comment.rating}/>
                        
                     </div>
+                    <span id="editDeleteIcons" onClick={()=>this.editComment(index)}><i class="far fa-edit fa-lg"></i>&emsp;<i class="far fa-trash-alt fa-lg"></i>&emsp;</span>
                 </div>
-                <p>{comment.message}</p>
+                
+                <textarea className="form-control different-control w-100" name="message" id="textareaASD" cols="30"onChange={(e)=>this.handleChange(comment._id,e)} placeholder="Enter Message" value={comment.message}  disabled/>
+                
             </div>)
             
             })

@@ -23,7 +23,7 @@ class SingleProduct extends Component {
 			rating: 0,
 			user: 0,
 			tab: 3,
-			style: "nav-item",
+			qty:1,
 			comments: null,
 		};
 
@@ -38,7 +38,22 @@ class SingleProduct extends Component {
 
 		});
 	}
-	refreshComments=()=>{
+	qtyIncrement(qty){
+		
+		this.setState({
+			qty: ++qty
+		});
+		
+	}
+	qtyDecrement(qty){
+		if(qty>1){
+		this.setState({
+			qty: --qty
+
+		});
+	}
+	}
+	refreshComments = () => {
 		this.refs.accessCommentView.loadComments();
 	}
 
@@ -132,8 +147,8 @@ class SingleProduct extends Component {
 
 			tab = <div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div className="row">
-					<CommentView ref="accessCommentView"/>
-					<CommentForm refComments={this.refreshComments}/>
+					<CommentView ref="accessCommentView" />
+					<CommentForm refComments={this.refreshComments} />
 				</div>
 			</div>
 		}
@@ -200,18 +215,17 @@ class SingleProduct extends Component {
 
 									<div className="product_count">
 										<label for="qty">Quantity:</label>
-										<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" className="input-text qty " />
-										<button onClick=""
-											className="increase items-count" ><i className="ti-angle-up"></i></button>
-
-										<button onClick=""
-											className="reduced items-count" type="button"><i className="ti-angle-down"></i></button>
+										<input type="text" name="qty" id="sst" size="2" maxlength="12" value={this.state.qty} title="Quantity:" className="input-text qty " />
+										<button id="up"
+											class="increase " type="button"><i class="fas fa-angle-up" onClick={() => this.qtyIncrement(this.state.qty)}></i></button>
+										<button id="down"
+											class="reduced " type="button"><i class="fas fa-angle-down" onClick={() => this.qtyDecrement(this.state.qty)}></i></button>
 
 									</div>
 									<button type="submit" id="addToCart" className="button primary-btn" >Add to Cart</button>
 									<div className="card_area d-flex align-items-center">
-										<a className="icon_btn" href="#"><i className="lnr lnr lnr-diamond"></i></a>
-										<a className="icon_btn" href="#"><i className="lnr lnr lnr-heart"></i></a>
+										
+										<a className="icon_btn" href="#" title="Add to Wish List"><i class="fas fa-heart "></i></a>
 									</div>
 
 								</div>
