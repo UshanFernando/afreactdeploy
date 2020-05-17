@@ -39,6 +39,7 @@ class AdminPage extends Component {
           <h2 ref={this.category} className="pt-4 mt-4">
             Manage Categories
           </h2>
+        
           <div className="row">
             <div className="col-sm ">
               <h4 className="pt-4 ">Product Categories</h4>
