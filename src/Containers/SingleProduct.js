@@ -38,7 +38,9 @@ class SingleProduct extends Component {
 
 		});
 	}
-
+	refreshComments=()=>{
+		this.refs.accessCommentView.loadComments();
+	}
 
 	render() {
 		let tab;
@@ -130,8 +132,8 @@ class SingleProduct extends Component {
 
 			tab = <div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div className="row">
-					<CommentView/>
-					<CommentForm />
+					<CommentView ref="accessCommentView"/>
+					<CommentForm refComments={this.refreshComments}/>
 				</div>
 			</div>
 		}
