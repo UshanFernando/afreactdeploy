@@ -10,7 +10,6 @@ class CommentView extends Component {
             id:"",
             name: "",
             message:"",
-            edit:"disabled",
             rating:0,
             avg:0.0,
             oneStars:0,
@@ -18,7 +17,7 @@ class CommentView extends Component {
             threeStars:0,
             fourStars:0,
             fiveStars:0,
-            edit:false,
+            disabled:false,
             comments:[]
         };
         //this.handleChange = this.handleChange.bind(this);
@@ -33,11 +32,15 @@ class CommentView extends Component {
           const res = await fetch("http://localhost:5000/comment/comments");
           const data = await res.json();
           
+         data.map((comment)=>{
+          comment.disabled=false
+         });
+         console.log(data);
           //updateing state with lastest data
           this.setState({
             comments: data,
           });
-          console.log(this.state.comments);
+          
         } catch (e) {
           //if failed to communicate with api this code block will run
           console.log(e);
@@ -73,9 +76,25 @@ class CommentView extends Component {
 
 
       }
-      editComment(index){
-        console.log(this.state.comments[index].name);
+      editComment(id){
+        //console.log(this.state.comments[index].name);
+        
+        const items = this.state.comments;
+        items.map(item => {
+        if (item._id === id) {
+          if(item.disabled==false){
+            item.disabled = true;
+          }else{
+            item.disabled = false;
+          }
+       
       }
+      this.setState({
+        comments: items
+      })
+       // this.setState( {disabled: !this.state.disabled} )
+      })
+    }
       handleChange(index,event) {
         const val=event.target.value;
         const items = this.state.comments;
@@ -110,10 +129,10 @@ class CommentView extends Component {
                         <StarSeries  count={comment.rating}/>
                        
                     </div>
-                    <span id="editDeleteIcons" onClick={()=>this.editComment(index)}><i class="far fa-edit fa-lg"></i>&emsp;<i class="far fa-trash-alt fa-lg"></i>&emsp;</span>
+                    <span id="editDeleteIcons" onClick={()=>this.editComment(comment._id)}><i class={(!comment.disabled)?"far fa-edit fa-lg": "fas fa-check fa-lg" }></i>&emsp;<i class="far fa-trash-alt fa-lg"></i>&emsp;</span>
                 </div>
                 
-                <textarea className="form-control different-control w-100" name="message" id="textareaASD" cols="30"onChange={(e)=>this.handleChange(comment._id,e)} placeholder="Enter Message" value={comment.message}  disabled/>
+                <textarea className="form-control different-control w-100" name="message" id="textareaASD" cols="30"onChange={(e)=>this.handleChange(comment._id,e)}  value={comment.message} disabled = {(comment.disabled)?"": "disabled" } />
                 
             </div>)
             

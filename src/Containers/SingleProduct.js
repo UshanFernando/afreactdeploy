@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 
 import CommentForm from '../Components/SingleProduct/CommentForm';
 import CommentView from '../Components/SingleProduct/CommentView';
+import ProductView from '../Components/SingleProduct/ProductView';
 
 
 
@@ -38,21 +39,7 @@ class SingleProduct extends Component {
 
 		});
 	}
-	qtyIncrement(qty){
-		
-		this.setState({
-			qty: ++qty
-		});
-		
-	}
-	qtyDecrement(qty){
-		if(qty>1){
-		this.setState({
-			qty: --qty
-
-		});
-	}
-	}
+	
 	refreshComments = () => {
 		this.refs.accessCommentView.loadComments();
 	}
@@ -191,48 +178,7 @@ class SingleProduct extends Component {
 
 
 				<div className="product_image_area" id="cartToast">
-					<div className="container">
-						<div className="row s_product_inner">
-							<div className="col-lg-6">
-								<div className="owl-carousel owl-theme s_Product_carousel">
-									<div className="single-prd-item">
-										<img className="img-fluid" src="/Assets/img/category/s-p1.jpg" alt="" />
-									</div>
-
-								</div>
-							</div>
-							<div className="col-lg-5 offset-lg-1">
-								<div className="s_product_text">
-									<h3>Test Product</h3>
-									<h2>Rs.3200</h2>
-									<ul className="list">
-										<li><a className="active" href="#"><span>Category</span> :Category 1</a></li>
-										<li><a href="#"><span>Availibility</span> : In Stock</a></li>
-									</ul>
-									<p >Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-									something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-							during the winter.</p>
-
-									<div className="product_count">
-										<label for="qty">Quantity:</label>
-										<input type="text" name="qty" id="sst" size="2" maxlength="12" value={this.state.qty} title="Quantity:" className="input-text qty " />
-										<button id="up"
-											class="increase " type="button"><i class="fas fa-angle-up" onClick={() => this.qtyIncrement(this.state.qty)}></i></button>
-										<button id="down"
-											class="reduced " type="button"><i class="fas fa-angle-down" onClick={() => this.qtyDecrement(this.state.qty)}></i></button>
-
-									</div>
-									<button type="submit" id="addToCart" className="button primary-btn" >Add to Cart</button>
-									<div className="card_area d-flex align-items-center">
-										
-										<a className="icon_btn" href="#" title="Add to Wish List"><i class="fas fa-heart "></i></a>
-									</div>
-
-								</div>
-
-							</div>
-						</div>
-					</div>
+					<ProductView/>
 				</div>
 
 
