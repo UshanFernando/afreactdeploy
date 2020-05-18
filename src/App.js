@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-
 import './App.css';
 import Wrapper from './Hoc/Wrapper'
 import NavBar from './Components/NavBar/NavBar'
-import  StoreManagerDashBoard from './Containers/StoreManager/StoreManagerDashBoard'
-import  ProductsAdding from './Containers/StoreManager/ProductsAdding'
-import  ListProducts from './Containers/StoreManager/ListProducts'
+import  StoreManagerPage from './Containers/StoreManagerPage/StoreManagerPage'
+import EditProducts from './Components/StoreManagerComponets/EditProducts';
 import SingleProduct from './Containers/SingleProduct'
 import Cart from './Containers/Cart'
 import AdminPage from './Containers/AdminPage/AdminPage'
@@ -42,16 +40,13 @@ class App extends Component {
             <Route path="/Home">
               <Home />
             </Route >
-            <Route path="/StoreManagerDashBoard">
-              <StoreManagerDashBoard/>
+            <Route path="/StoreManagerPage">
+              <StoreManagerPage/>
             </Route >
-          <Route path="/Stockmanager/addingProducts">
-          <ProductsAdding/>
-          </Route>
-          <Route path="/Stockmanager/listproducts">
-             <ListProducts/>
+            <Route path="/StoreManagerPage/edit/:id">
+              <EditProducts/>
+            </Route >
 
-          </Route>
 
           </Switch>
         </Router>

@@ -33,3 +33,9 @@
   .stockmngerform{
       width:70%;
   }
+  .storeManegeProdcts{
+
+    height: 450px; 
+    overflow-y: scroll;
+  }
+  
