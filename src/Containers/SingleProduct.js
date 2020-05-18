@@ -2,7 +2,7 @@ import React, { useState, Component } from 'react'
 import { render } from '@testing-library/react';
 
 import CommentForm from '../Components/SingleProduct/CommentForm';
-
+import CommentView from '../Components/SingleProduct/CommentView';
 
 
 
@@ -23,15 +23,11 @@ class SingleProduct extends Component {
 			rating: 0,
 			user: 0,
 			tab: 3,
-			style: "nav-item",
+			qty:1,
 			comments: null,
 		};
 
 	}
-
-
-
-
 
 	handleProductTabs(num) {
 		if (num == 1) {
@@ -42,7 +38,24 @@ class SingleProduct extends Component {
 
 		});
 	}
+	qtyIncrement(qty){
+		
+		this.setState({
+			qty: ++qty
+		});
+		
+	}
+	qtyDecrement(qty){
+		if(qty>1){
+		this.setState({
+			qty: --qty
 
+		});
+	}
+	}
+	refreshComments = () => {
+		this.refs.accessCommentView.loadComments();
+	}
 
 	render() {
 		let tab;
@@ -134,91 +147,8 @@ class SingleProduct extends Component {
 
 			tab = <div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div className="row">
-					<div className="col-lg-6">
-						<div className="row total_rate">
-							<div className="col-6">
-								<div className="box_total">
-									<h5>Overall</h5>
-									<h4>4.0</h4>
-									<h6>(03 Reviews)</h6>
-								</div>
-							</div>
-							<div className="col-6">
-								<div className="rating_list">
-									<h3>Based on 3 Reviews</h3>
-									<ul className="list">
-										<li><a href="#">5 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-											className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-										<li><a href="#">4 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-											className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-										<li><a href="#">3 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-											className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-										<li><a href="#">2 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-											className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-										<li><a href="#">1 Star <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i
-											className="fa fa-star"></i><i className="fa fa-star"></i> 01</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div className="review_list">
-							<div className="review_item">
-								<div className="media">
-									<div className="d-flex">
-										<img src="img/product/review-1.png" alt="" />
-									</div>
-									<div className="media-body">
-										<h4>Blake Ruiz</h4>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-									</div>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo</p>
-							</div>
-							<div className="review_item">
-								<div className="media">
-									<div className="d-flex">
-										<img src="img/product/review-2.png" alt="" />
-									</div>
-									<div className="media-body">
-										<h4>Blake Ruiz</h4>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-									</div>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo</p>
-							</div>
-							<div className="review_item">
-								<div className="media">
-									<div className="d-flex">
-										<img src="img/product/review-3.png" alt="" />
-									</div>
-									<div className="media-body">
-										<h4>Blake Ruiz</h4>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-										<i className="fa fa-star"></i>
-									</div>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo</p>
-							</div>
-						</div>
-					</div>
-					<CommentForm />
+					<CommentView ref="accessCommentView" />
+					<CommentForm refComments={this.refreshComments} />
 				</div>
 			</div>
 		}
@@ -285,18 +215,17 @@ class SingleProduct extends Component {
 
 									<div className="product_count">
 										<label for="qty">Quantity:</label>
-										<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" className="input-text qty " />
-										<button onClick=""
-											className="increase items-count" ><i className="ti-angle-up"></i></button>
-
-										<button onClick=""
-											className="reduced items-count" type="button"><i className="ti-angle-down"></i></button>
+										<input type="text" name="qty" id="sst" size="2" maxlength="12" value={this.state.qty} title="Quantity:" className="input-text qty " />
+										<button id="up"
+											class="increase " type="button"><i class="fas fa-angle-up" onClick={() => this.qtyIncrement(this.state.qty)}></i></button>
+										<button id="down"
+											class="reduced " type="button"><i class="fas fa-angle-down" onClick={() => this.qtyDecrement(this.state.qty)}></i></button>
 
 									</div>
 									<button type="submit" id="addToCart" className="button primary-btn" >Add to Cart</button>
 									<div className="card_area d-flex align-items-center">
-										<a className="icon_btn" href="#"><i className="lnr lnr lnr-diamond"></i></a>
-										<a className="icon_btn" href="#"><i className="lnr lnr lnr-heart"></i></a>
+										
+										<a className="icon_btn" href="#" title="Add to Wish List"><i class="fas fa-heart "></i></a>
 									</div>
 
 								</div>

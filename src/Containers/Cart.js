@@ -1,23 +1,9 @@
-import React from 'react'
-import $ from 'jquery'
+import React,{Component} from 'react'
 
+import CartTable from '../Components/Cart/CartTable';
 
-    $(document).ready(function(){ 
-           
-        $('#cartTable').load("",{
-               
-        })
-      
-         
-        
-
-    });
-  
-
-function Cart() {
-const { JSDOM } = require( "jsdom" );
-const { window } = new JSDOM( "" );
-const $ = require( "jquery" )( window );
+class Cart extends Component {
+  render(){
     return (
         <div>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
@@ -43,7 +29,7 @@ const $ = require( "jquery" )( window );
     </div>
 	</section>
 
-  <div class="toast m-5 alert alert-success shadow " id="myToast" style="position: fixed; top:0; right: 0;z-index:10000" data-delay="5000">
+  {/* <div class="toast m-5 alert alert-success shadow " id="myToast" style="position: fixed; top:0; right: 0;z-index:10000" data-delay="5000">
          <div class="toast-header">
       <img src="img/bell.png" width="20px" class="rounded mr-2" alt="..."/>
       <strong class="mr-auto"> </strong>
@@ -54,17 +40,18 @@ const $ = require( "jquery" )( window );
     <div class="toast-body">
         <strong class="" style="font-size:20px;">Please fill the shipping form!</strong>
     </div>
-    </div>
+    </div> */}
   
 
 <div id="cartTable">
-  
+  <CartTable/>
             
                       
 </div>
             
         </div>
     )
+}
 }
 
 export default Cart
