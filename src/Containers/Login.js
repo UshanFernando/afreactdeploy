@@ -44,7 +44,7 @@ class Login extends Component {
 				}),
 			};
 			 await fetch(
-			  "http://localhost:5000/",
+			  "http://localhost:5000/login/login",
 			  requestOptions
 			);
 			// this.loadCategories();
