@@ -1,11 +1,40 @@
 import React, { Component } from 'react'
-
+import axios from 'axios';
+import Section1 from "../../Components/HomePage/Section1";
 
 
 
 class Home extends Component{
 
+  state={
+    products:[]
+  }
+
+  componentDidMount(){
+    axios.get('http://localhost:5000/storemanger/products')
+    .then(res=>{
+     let pro=res.data;
+      this.setState({
+        products:pro
+    });
+    });
+       
+  }
+
+
+    
     render(){
+     
+      let firstsection=this.state.products.forEach(fist=>{
+        
+        return (
+         <Section1 category={fist.category} name={fist.productname} url={fist.productImage}/>
+        );
+          
+       
+            
+       });
+      
 
         return(
 
@@ -31,32 +60,17 @@ class Home extends Component{
       </div>
     </section>
 
+{/* start */}
 
     <section class="section-margin mt-0">
       <div class="owl-carousel owl-theme hero-carousel">
-        <div class="hero-carousel__slide">
-        <img src={require('../../Components/img/hero-slide1.png')} />
-          <a href="#" class="hero-carousel__slideOverlay">
-            <h3>Wireless Headphone</h3>
-            <p>Accessories Item</p>
-          </a>
-        </div>
-        <div class="hero-carousel__slide">
-        <img src={require('../../Components/img/hero-slide2.png')} />
-          <a href="#" class="hero-carousel__slideOverlay">
-            <h3>Wireless Headphone</h3>
-            <p>Accessories Item</p>
-          </a>
-        </div>
-        <div class="hero-carousel__slide">
-        <img src={require('../../Components/img/hero-slide3.png')} />
-          <a href="#" class="hero-carousel__slideOverlay">
-            <h3>Wireless Headphone</h3>
-            <p>Accessories Item</p>
-          </a>
-        </div>
+
+          {firstsection}
+     
       </div>
     </section>
+
+{/* end */}
 
 
     <section class="section-margin calc-60px">
