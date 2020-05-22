@@ -1,99 +1,16 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Containers/StoreManagerPage/StoreManager.css";
-
+import axios from 'axios';
 class StoreManagerAddproductCom extends Component {
-
-    state = {
-        Products: [],
-        Productname: '',
-        Category: '',
-        Price: 0,
-        Discount: 0,
-        Description: '',
-        Imageurl: '',
-        File: '',
-        StoreMangerID: '',
-        ProductCategories: []
-    }
-
-    componentDidMount() {
-        this.setState({
-            ProductCategories: ['watches', 'clothes'],
-            StoreMangerID: 'fghhtyyyy'
-        });
-    }
-    imagePickedHandler = (e) => {
-        let url;
-        if (e.target.files && e.target.files.length === 1) {
-
-            let fileReader = new FileReader();
-            fileReader.onload = () => {
-                url = fileReader.result;
-                this.setState({
-                    Imageurl: url
-                });
-            }
-            fileReader.readAsDataURL(e.target.files[0]);
-            this.setState({
-                File: e.target.files[0],
-
-            });
-
-        }
-
-    }
-    ProductNameChangedhandler = (e) => {
-        this.setState({
-            Productname: e.target.value
-        });
-    }
-
-    ProdutCategoryChangedhandler = (e) => {
-        this.setState({
-            Category: e.target.value
-        });
-    }
-
-    ProductPriceChangedhandler = (e) => {
-        this.setState({
-            Price: e.target.value
-        });
-    }
-    DiscountChangedhandler = (e) => {
-        this.setState({
-            Discount: e.target.value
-        });
-    }
-    DiscriptionChangedhandler = (e) => {
-        this.setState({
-            Description: e.target.value
-        });
-    }
-    SubmitDetailsHandler = (e) => {
-        e.preventDefault();
-        let product = {
-            Productname: this.state.Productname,
-            Category: this.state.Category,
-            Price: this.state.Price,
-            Discount: this.state.Discount,
-            Description: this.state.Description,
-            File: this.state.File,
-            Imageurl: this.state.Imageurl,
-            StoreMangerID: this.state.StoreMangerID
-
-        }
-        console.log(product);
-    }
-
     render() {
 
         return (
-            <div className="card  my-3 card-body py-4 stockmngerform" >
-                <form onSubmit={this.SubmitDetailsHandler}>
+            <div className="card   card-body  stockmngerform" >
+                <form onSubmit={this.props.SubmitDetailsHandler}>
                     <label>Product Name: </label>
                     <div className="form-group">
-                        <input type='text' className="form-control" placeholder="add a product" onChange={this.ProductNameChangedhandler} />
+                        <input type='text' className="form-control" placeholder="add a product" onChange={this.props.ProductNameChangedhandler} />
                     </div>
 
                     <div className="form-group">
@@ -102,47 +19,49 @@ class StoreManagerAddproductCom extends Component {
 
                             required
                             className="form-control"
-                            value={this.state.Category}
-                            onChange={this.ProdutCategoryChangedhandler}>
+                            value={this.props.Category}
+                            onChange={this.props.ProdutCategoryChangedhandler}>
                             {
-                                this.state.ProductCategories.map(function (single, index) {
+                                this.props.categories.map(function (single) {
                                     return <option
-                                        key={index}
-                                        value={single} >{single}
+                                        key={single._id} selected
+                                        value={single.name}   selected>{single.name}
+                                      
                                     </option>;
                                 })
+                               
                             }
                         </select>
                     </div>
 
                     <label>Product Price: </label>
                     <div className="form-group">
-                        <input type='Number' className="form-control" placeholder="add The Price" onChange={this.ProductPriceChangedhandler} />
+                        <input type='Number' className="form-control" placeholder="add The Price" onChange={this.props.ProductPriceChangedhandler} />
                     </div>
 
                     <label>Discount </label>
                     <div className="form-group">
-                        <input type='Number' className="form-control" placeholder="Discount" onChange={this.DiscountChangedhandler} />
+                        <input type='Number' className="form-control" placeholder="Discount" onChange={this.props.DiscountChangedhandler} />
                     </div>
 
 
                     <div className="storeTextArea form-group">
-                        <textarea className="form-control" placeholder="Add Products Details" rows="5" onChange={this.DiscriptionChangedhandler} />
+                        <textarea className="form-control" placeholder="Add Products Details" rows="5" onChange={this.props.DiscriptionChangedhandler} />
 
                     </div>
 
 
                     <div className="storeMana_ph">
                         <div className="Produ_photo_show mx-auto ">
-                            {this.state.Imageurl && <img src={this.state.Imageurl} alt="Preview" />}
+                            {this.props.Imageurl && <img src={this.props.Imageurl} alt="Preview" />}
                         </div>
-                        {!this.state.Imageurl && <p className="alert alert-danger">Please Select a Image</p>}
+                        {!this.props.Imageurl && <p className="alert alert-danger">Please Select a Image and Image Size Should be Less Than 9MB</p>}
                     </div>
                     <div class="file btn btn-lg btn-primary storeManageFilUpload">
-                        Upload
-                        <input type="file" ref="productImage"
+                        Upload Image
+                        <input type="file"
                             accept=".jpg,.png,.jpeg"
-                            onChange={this.imagePickedHandler}
+                            onChange={this.props.imagePickedHandler}
                         />
                     </div>
 
@@ -153,6 +72,8 @@ class StoreManagerAddproductCom extends Component {
                 </form>
 
             </div>
+
+            
         );
 
 
