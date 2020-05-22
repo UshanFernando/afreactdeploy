@@ -45,7 +45,7 @@ class App extends Component {
               <Home />
             </Route >
             <Route path="/StoreManagerPage">
-              <StoreManagerPage/>
+              <StoreManagerPage StoreMangerID="5ebfe25de12d862560358088"/>
             </Route >
             <Route path="/StoreManagerPage/edit/:id">
               <EditProducts/>
