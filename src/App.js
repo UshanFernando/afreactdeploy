@@ -67,6 +67,7 @@ class App extends Component {
               <NavBar />
               <Register />
             </Route>
+
             <PrivateRoute
               path="/WishList"
               component={WishList}
