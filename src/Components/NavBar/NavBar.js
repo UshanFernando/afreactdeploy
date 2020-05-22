@@ -156,7 +156,7 @@ class NavBar extends Component {
                     </a>{" "}
                   </li>
                   <li className="nav-item">
-                                    <a className="button button-header" href={Auth.isAuthenticated?"/logout":"/login"}>
+                                    <a className="button button-header" href={Auth.isAuthenticated()?"/logout":"/login"}>
                       {Auth.isAuthenticated() ? "Logout" : "Login/Register"}
                     </a>
                   </li>

@@ -3,7 +3,7 @@ const getToken = () => {
 }
 
 const getUserLevel = () => {
-    if (isAuthenticated) {
+    if (isAuthenticated()) {
         const user = parseJwt(getToken());
         return user.role;
     }
@@ -30,7 +30,7 @@ const parseJwt = (token)=> {
 }
 
 const logout = () => {
-    if (isAuthenticated) {
+    if (isAuthenticated()) {
         localStorage.removeItem('token');
         console.log("User Logged Out")
     }

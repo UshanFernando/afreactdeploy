@@ -19,51 +19,67 @@ import Home from "./Containers/Home/Home";
 import Login from "./Containers/Login";
 import "font-awesome/css/font-awesome.min.css";
 import Register from "./Containers/Register";
-import Auth from "./Authentication/Auth"
+import Auth from "./Authentication/Auth";
 class App extends Component {
-  cnt = 0;
+  // cnt = 0;
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     logged: Auth.isAuthenticated(),
+  //     role: Auth.getUserLevel(),
+  //   };
+  // }
   render() {
     return (
       <Wrapper>
-        <NavBar />
-
         <Router>
           <Switch>
             <Route path="/sp">
+              <NavBar />
               <SingleProduct />
             </Route>
             <Route path="/cart">
+              <NavBar />
               <Cart />
             </Route>
             <Route path="/login">
+              <NavBar />
               <Login />
             </Route>
             <Route
               path="/logout"
               render={() => {
                 Auth.logout();
-                return <Home />;
+                return (
+                  <Wrapper>
+                    <NavBar /> <Home />
+                  </Wrapper>
+                );
               }}
             />
-      
+
             <PrivateRoute
               path="/AdminPage"
               component={AdminPage}
               role="admin"
             />
             <Route path="/Register">
+              <NavBar />
               <Register />
             </Route>
             <Route path="/WishList">
               <WishList />
             </Route>
             <Route path="/Home">
+              <NavBar />
               <Home />
             </Route>
             <Route path="/StoreManagerPage">
+              <NavBar />
               <StoreManagerPage StoreMangerID="5ebfe25de12d862560358088" />
             </Route>
             <Route path="/StoreManagerPage/edit/:id">
+              <NavBar />
               <EditProducts />
             </Route>
           </Switch>
