@@ -3,13 +3,14 @@ import Wrapper from "../../Hoc/Wrapper";
 import StoreManagersList from "../../Layouts/StoreMangersList/StoreManagersList";
 import RegisterNewStoreManager from "../../Layouts/RegisterNewStoreManager/RegisterNewStoreManager";
 import Alert from "../../Components/Alert/Alert";
+import Auth from "../../Authentication/Auth";
 
 export class AdminManageSM extends Component {
   constructor(props) {
     super(props);
-      this.registerSM = this.registerSM.bind(this);
-      this.loadStoreManagers = this.loadStoreManagers.bind(this);
-      this.deleteSM = this.deleteSM.bind(this);
+    this.registerSM = this.registerSM.bind(this);
+    this.loadStoreManagers = this.loadStoreManagers.bind(this);
+    this.deleteSM = this.deleteSM.bind(this);
     this.state = {
       storeManagers: null,
       userRegAlert: false,
@@ -55,9 +56,8 @@ export class AdminManageSM extends Component {
     this.setState({
       userRegAlert: false,
     });
-    };
-    
-    
+  };
+
   lnameInputChange = (e) => {
     this.setState({ lname: e.target.value });
   };
@@ -93,7 +93,10 @@ export class AdminManageSM extends Component {
       try {
         const requestOptions = {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            token: Auth.getToken(),
+          },
           body: JSON.stringify({
             fname: this.state.fname,
             lname: this.state.lname,
@@ -136,7 +139,7 @@ export class AdminManageSM extends Component {
     try {
       const requestOptions = {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", token: Auth.getToken() },
       };
       const res = await fetch(
         "http://localhost:5000/admin/storemanager",
@@ -151,13 +154,13 @@ export class AdminManageSM extends Component {
     }
   }
 
-    async deleteSM(id) {
-     
+  async deleteSM(id) {
     try {
       const requestOptions = {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id })
+        headers: { "Content-Type": "application/json", token: Auth.getToken() },
+        body: JSON.stringify({ id: id }),
+        token: Auth.getToken(),
       };
       await fetch("http://localhost:5000/admin/storemanager", requestOptions);
       this.loadStoreManagers();

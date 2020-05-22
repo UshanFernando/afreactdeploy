@@ -8,7 +8,8 @@ import EditProducts from './Components/StoreManagerComponets/EditProducts';
 import SingleProduct from './Containers/SingleProduct'
 import Cart from './Containers/Cart'
 import WishList from './Containers/WishList'
-import AdminPage from './Containers/AdminPage/AdminPage'
+import  AdminPage  from './Containers/AdminPage/AdminPage'
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 import Home from './Containers/Home/Home'
 import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
@@ -32,9 +33,7 @@ class App extends Component {
             <Route path="/login">
               <Login />
             </Route >
-            <Route path="/AdminPage">
-              <AdminPage />
-            </Route >
+            <PrivateRoute path="/AdminPage" component={AdminPage} role='admin'/>
             <Route path="/Register">
               <Register />
             </Route >

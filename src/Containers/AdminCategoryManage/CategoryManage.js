@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Wrapper from "../../Hoc/Wrapper";
 import CategoryList from "../../Layouts/CategoriesList/CategoriesList";
+import Auth from '../../Authentication/Auth'
 
 export class CategoryManage extends Component {
   constructor(props) {
@@ -79,7 +80,7 @@ export class CategoryManage extends Component {
       try {
         const requestOptions = {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "token": Auth.getToken() },
           body: JSON.stringify({ name: this.state.categoryName }),
         };
         await fetch("http://localhost:5000/admin/category", requestOptions);
@@ -111,7 +112,7 @@ export class CategoryManage extends Component {
     try {
       const requestOptions = {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json","token": Auth.getToken() },
         body: JSON.stringify({ id: id }),
       };
       await fetch("http://localhost:5000/admin/category", requestOptions);
@@ -125,7 +126,7 @@ export class CategoryManage extends Component {
     try {
       const requestOptions = {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json","token": Auth.getToken() },
         body: JSON.stringify({
           id: this.state.cUpdateId,
           name: this.state.categoryName,

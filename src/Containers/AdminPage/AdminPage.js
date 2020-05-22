@@ -4,6 +4,7 @@ import StoreManagerManage from "../../Containers/AdminMangeSM/AdminManageSM";
 import Banner from "../../Components/Banner/Banner";
 import "./AdminPage.css";
 import SiteOverviewAdmin from "../../Components/SiteOverviewAdmin/SiteOverviewAdmin";
+import Auth from "../../Authentication/Auth"
 
 class AdminPage extends Component {
   constructor(props) {
@@ -67,19 +68,13 @@ class AdminPage extends Component {
     window.scrollTo(0, this.manager.current.offsetTop - 100);
 
   async loadStats() {
-    console.log(
-      this.parseJwt(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzZjYzgwMTVlYjRjMjc1Y2Q0ZmJiMiIsInJvbGUiOiJzbSIsImlhdCI6MTU5MDE0MDkzOH0.lrG0kYf1pz5Sg9nQHQ2FpY9wqHEJ9R-vV3LIHk-yptA"
-      )
-    );
-
     try {
       const requestOptions = {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzZjYzgwMTVlYjRjMjc1Y2Q0ZmJiMiIsInJvbGUiOiJzbSIsImlhdCI6MTU5MDE0MDkzOH0.lrG0kYf1pz5Sg9nQHQ2FpY9wqHEJ9R-vV3LIHk-yptA",
+          "token":
+           Auth.getToken(),
         },
       };
       const res = await fetch(
