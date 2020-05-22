@@ -3,6 +3,79 @@ import React,{Component} from 'react'
 import CartTable from '../Components/Cart/CartTable';
 
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        userid:"123123",
+        name: "",
+        message:"",
+        rating:0,
+        avg:0.0,
+        oneStars:0,
+        twoStars:0,
+        threeStars:0,
+        fourStars:0,
+        fiveStars:0,
+        products:[],
+        carts:[]
+    };
+    //this.handleChange = this.handleChange.bind(this);
+    this.loadCartProducts = this.loadCartProducts.bind(this);
+    
+  }
+  async componentDidMount() {
+    this.loadCartProducts();
+  }
+  async loadCartProducts() {
+    try {
+      const res = await fetch("http://localhost:5000/cart/carts"+this.state.userid);
+      const data = await res.json();
+      this.setState({
+        carts: data,
+      });
+      
+     console.log(this.state.carts);
+      //updateing state with lastest data
+      this.setState({
+        products: data,
+      });
+      
+    } catch (e) {
+      //if failed to communicate with api this code block will run
+      console.log(e);
+    }
+
+    if (this.state.comments != null) {
+        let one=0,two=0,three=0,four=0,five=0,average=0.0;
+        this.state.comments.map((comment) => {
+            if(comment.rating==1){
+                one++;
+            }else if (comment.rating==2){
+                two++;
+            }else if(comment.rating==3){
+                three++;
+            }else if(comment.rating==4){
+                four++;
+            }else{
+                five++;
+            }
+        
+         average=(1*one+2*two+3*three+4*four+5*five)/(one+two+three+four+five);
+        
+        })
+        this.setState({
+            oneStars:one,
+            twoStars:two,
+            threeStars:three,
+            fourStars:four,
+            fiveStars:five,
+            avg:average.toFixed(1) 
+        });
+    }
+
+
+  }
   render(){
     return (
         <div>
