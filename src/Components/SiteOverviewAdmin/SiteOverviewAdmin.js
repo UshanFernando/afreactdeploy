@@ -3,11 +3,14 @@ import Wrapper from '../../Hoc/Wrapper'
 const SiteOverviewAdmin = (props) => {
   let noUsers = null;
   let noCategories = null;
+  let noProducts = null;
+  let noStoreManagers = null;
 
   if (props.stats != null) {
     noUsers = props.stats.users;
     noCategories = props.stats.categories;
-
+    noProducts = props.stats.products;
+    noStoreManagers = props.stats.storemanagers;
   }
   return (
     <Wrapper>
@@ -28,7 +31,7 @@ const SiteOverviewAdmin = (props) => {
               <i className="fa fa-shopping-bag" aria-hidden="true"></i>
             </h4>
             <h6 className="card-title">No Of Products</h6>
-            <h4 className="display-4">21</h4>
+            <h4 className="display-4">{noProducts==null?'N/A':noProducts}</h4>
           </div>
         </div>
         <div className="card col-sm border-warning m-3 analytic">
@@ -46,7 +49,7 @@ const SiteOverviewAdmin = (props) => {
               <i className="fa fa-user-plus" aria-hidden="true"></i>
             </h4>
             <h6 className="card-title">No Of Store Managers</h6>
-            <h4 className="display-4">21</h4>
+            <h4 className="display-4">{noStoreManagers==null?'N/A':noStoreManagers}</h4>
           </div>
         </div>
       </div>
