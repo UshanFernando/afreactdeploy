@@ -48,10 +48,10 @@ class Login extends Component {
         const data = await res.json();
 
         if (data.hasOwnProperty("accessToken")) {
+          localStorage.setItem("token", data.accessToken);
           this.setState({
             redirect: true,
           });
-          localStorage.setItem("token", data);
         } else {
           this.setState({
             userRegMsg: data.error,
