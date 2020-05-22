@@ -1,31 +1,28 @@
 import React, { Component } from "react";
-import CategoryList from "../../Layouts/CategoriesList/CategoriesList";
-import StoreManagersList from "../../Layouts/StoreMangersList/StoreManagersList";
-import RegisterNewStoreManager from "../../Layouts/RegisterNewStoreManager/RegisterNewStoreManager";
+import CategoryManage from "../AdminCategoryManage/CategoryManage";
+import StoreManagerManage from "../../Containers/AdminMangeSM/AdminManageSM";
 import Banner from "../../Components/Banner/Banner";
 import "./AdminPage.css";
 import SiteOverviewAdmin from "../../Components/SiteOverviewAdmin/SiteOverviewAdmin";
+
 class AdminPage extends Component {
   constructor(props) {
     super(props);
     this.category = React.createRef();
     this.manager = React.createRef();
-    this.loadCategories = this.loadCategories.bind(this);
-    this.addCategory = this.addCategory.bind(this);
-    this.deleteCategory = this.deleteCategory.bind(this);
-    this.updateCategory = this.updateCategory.bind(this);
     this.loadStats = this.loadStats.bind(this);
     this.state = {
-      categoryName: "",
-      categories: null,
       stats: null,
-      cUpdateEn: false,
-      cUpdateId: null,
+      userRegAlert: false,
+      userRegMsg: "",
+      userRegTheme: "",
+      fname: "",
+      lname: "",
+      email: "",
     };
   }
 
   async componentDidMount() {
-    this.loadCategories();
     this.loadStats();
   }
 
@@ -46,63 +43,22 @@ class AdminPage extends Component {
           <h2 ref={this.category} className="pt-4 mt-4">
             Manage Categories
           </h2>
-
-          <div className="row">
-            <div className="col-sm ">
-              <h4 className="pt-4 ">Product Categories</h4>
-              <div className="listScrollable">
-                <CategoryList
-                  categories={this.state.categories}
-                  onDelete={this.deleteCategory}
-                  onUpdate={this.handleCategoryUpdate}
-                />
-              </div>
-            </div>
-            <div className="col-sm">
-              <h4 className="pt-4 ">Add New Categories</h4>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                placeholder="Category Name"
-                value={this.state.categoryName}
-                onChange={this.categoryNameInputChange}
-              />
-              <br />
-              <button
-                onClick={
-                  this.state.cUpdateEn ? this.updateCategory : this.addCategory
-                }
-                className="button"
-              >
-                {this.state.cUpdateEn ? "Update" : "Add"}
-              </button>
-            </div>
-          </div>
-          <br />
-          <hr className="mt-4 mb-4" />
+          <CategoryManage />
           <h2 ref={this.manager} className="pt-4 mt-4">
             Manage Store Managers
           </h2>
-
-          <h4 className="pt-4">Register New Store Managers</h4>
-          <RegisterNewStoreManager />
-
-          <h4 className="pt-4">Registered Store Managers</h4>
-          <div className="listScrollable">
-            <StoreManagersList />
-          </div>
+          <StoreManagerManage />
         </div>
       </div>
     );
   }
-
-  handleCategoryUpdate = (category) => {
-    this.setState({
-      cUpdateEn: true,
-      cUpdateId: category._id,
-      categoryName: category.name,
-    });
+  parseJwt = (token) => {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
   };
 
   scrollToCategories = () =>
@@ -110,79 +66,26 @@ class AdminPage extends Component {
   scrollToManagers = () =>
     window.scrollTo(0, this.manager.current.offsetTop - 100);
 
-  async addCategory() {
-    if (this.state.categoryName.trim() !== 0) {
-      try {
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: this.state.categoryName }),
-        };
-        await fetch("http://localhost:5000/admin/category", requestOptions);
-        this.loadCategories();
-        this.setState({
-          categoryName: "",
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-
-  async loadCategories() {
-    try {
-      const res = await fetch("http://localhost:5000/admin/category");
-      const data = await res.json();
-      //updateing state with lastest data
-      this.setState({
-        categories: data,
-      });
-    } catch (e) {
-      //if failed to communicate with api this code block will run
-      console.log(e);
-    }
-  }
-
-  async deleteCategory(id) {
-    try {
-      const requestOptions = {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id }),
-      };
-      await fetch("http://localhost:5000/admin/category", requestOptions);
-      this.loadCategories();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  async updateCategory() {
-   
-    try {
-      const requestOptions = {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: this.state.cUpdateId,
-          name: this.state.categoryName,
-        }),
-      };
-      await fetch("http://localhost:5000/admin/category", requestOptions);
-      this.loadCategories();
-      this.setState({
-        categoryName: "",
-        cUpdateEn: false,
-        cUpdateId: null,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   async loadStats() {
+    console.log(
+      this.parseJwt(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzZjYzgwMTVlYjRjMjc1Y2Q0ZmJiMiIsInJvbGUiOiJzbSIsImlhdCI6MTU5MDE0MDkzOH0.lrG0kYf1pz5Sg9nQHQ2FpY9wqHEJ9R-vV3LIHk-yptA"
+      )
+    );
+
     try {
-      const res = await fetch("http://localhost:5000/admin/stats");
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzZjYzgwMTVlYjRjMjc1Y2Q0ZmJiMiIsInJvbGUiOiJzbSIsImlhdCI6MTU5MDE0MDkzOH0.lrG0kYf1pz5Sg9nQHQ2FpY9wqHEJ9R-vV3LIHk-yptA",
+        },
+      };
+      const res = await fetch(
+        "http://localhost:5000/admin/stats",
+        requestOptions
+      );
       const data = await res.json();
       //updateing state with lastest data
       this.setState({
@@ -193,10 +96,6 @@ class AdminPage extends Component {
       console.log(e);
     }
   }
-
-  categoryNameInputChange = (e) => {
-    this.setState({ categoryName: e.target.value });
-  };
 }
 
 export default AdminPage;
