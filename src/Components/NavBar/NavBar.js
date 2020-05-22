@@ -61,8 +61,8 @@ class NavBar extends Component {
                                             <i class="fas fa-search" aria-hidden="true"></i>
                                         </form>
                                     </li>
-                                    <li className="nav-item"><button><i class="far fa-heart"></i><span className="nav-shop__circle">3</span></button> </li>
-                                    <li className="nav-item"><button><i className="ti-shopping-cart"></i><span className="nav-shop__circle">3</span></button> </li>
+                                    <li className="nav-item"><a href="/WishList"><button><i class="far fa-heart"></i><span className="nav-shop__circle">3</span></button></a> </li>
+                                    <li className="nav-item"><a href="/cart"><button><i className="ti-shopping-cart"></i><span className="nav-shop__circle">3</span></button></a> </li>
                                     <li class="nav-item"><a class="button button-header" href="/login">Login/Register</a></li>
                                 </ul>
                             </div>

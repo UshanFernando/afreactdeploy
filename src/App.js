@@ -7,6 +7,7 @@ import  StoreManagerPage from './Containers/StoreManagerPage/StoreManagerPage'
 import EditProducts from './Components/StoreManagerComponets/EditProducts';
 import SingleProduct from './Containers/SingleProduct'
 import Cart from './Containers/Cart'
+import WishList from './Containers/WishList'
 import AdminPage from './Containers/AdminPage/AdminPage'
 import Home from './Containers/Home/Home'
 import Login from './Containers/Login'
@@ -36,6 +37,9 @@ class App extends Component {
             </Route >
             <Route path="/Register">
               <Register />
+            </Route >
+            <Route path="/WishList">
+              <WishList />
             </Route >
             <Route path="/Home">
               <Home />
