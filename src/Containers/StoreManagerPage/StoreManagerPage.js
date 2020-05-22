@@ -26,22 +26,14 @@ class StoreManagerPage extends Component {
 
     }
     componentDidMount() {
-        let managerid;
-        let firstdata;
-        axios.get('http://localhost:5000/register/register')
-        .then(response=>{
-         managerid=response.data[0]._id;
-        
-         console.log(managerid);
-
-        });
+       
        let category;
         axios.get('http://localhost:5000/admin/category')
         .then(response=>{
            category= response.data;
            this.setState({
             ProductCategories:category,
-            StoreMangerID:managerid,
+            StoreMangerID:this.props.StoreMangerID,
             TableCategoryFilter:response.data[1].name
 
         });
