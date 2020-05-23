@@ -16,7 +16,7 @@ import Register from './Containers/Register';
 import Category from "./Containers/Category";
 import ResetPassword from "./Containers/ResetPassword";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import Category from "./Containers/Category"
+
 import Auth from "./Authentication/Auth";
 
 class App extends Component {

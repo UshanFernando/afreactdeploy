@@ -123,9 +123,7 @@ class SingleProduct extends Component {
               >
                 <div className="row">
                   <CommentView pId={this.state.pid} ref="accessCommentView" />
-                  <CommentForm
-                    pId={this.state.pid}
-                    refComments={this.refreshComments}
+                  <CommentForm pId={this.state.pid} refComments={this.refreshComments}
                   />
                 </div>
               </div>

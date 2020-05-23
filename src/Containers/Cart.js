@@ -53,37 +53,37 @@ class Cart extends Component {
             console.log(e);
         }
     }
+    async deleteComment(id) {
+        try {
+          const requestOptions = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: id }),
+          };
+          await fetch("http://localhost:5000/cart/carts"+id, requestOptions);
+          alert("Deleted");
+          this.loadCartProducts();
+        } catch (e) {
+          console.log(e);
+        }
+      }
     handleChange(event) {
         
         const target = event.target;
         const value =  target.value
         const name= target.name;
         
-     
        
         this.setState({
-            [name]:value,
-            
-        
+            [name]:value,  
         });
-        const shipp=this.state.district + this.state.ship
+        
         this.setState({
             
-            shipping:shipp
+            shipping:  parseInt(this.state.district) + parseInt(this.state.ship)
         
         });
-
-        // const val = event.target.value;
-        // const items = this.state.comments;
-        // items.map(item => {
-        //   if (item._id === index) {
-        //     item.message = val;
-
-        //   }
-        //   this.setState({
-        //     comments: items
-        //   })
-        // })
+    
     }
     singleTotal(id) {
             
@@ -264,28 +264,28 @@ class Cart extends Component {
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <h3>Shipping Details</h3>
-                                            <form class="row contact_form" action="" method="post" id="shipping-form" onChange={this.handleChange}>
+                                            <form class="row contact_form" action="" method="post" id="shipping-form" >
 
 
 
                                                 <div class="col-md-12 ">
                                                     <span class="placeholder mb-2" data-placeholder="Town/City"><strong>Method</strong></span>
                                                     <ul class="list ">
-                                                        <li class=" ml-3"><label class="float-left">Domex<span></span></label><input class="pixel-radio float-right " type="radio" value="500" name="ship" /></li>
+                                                        <li class=" ml-3"><label class="float-left">Domex<span></span></label><input class="pixel-radio float-right " type="radio" value="500" name="ship" onClick={(e)=>this.handleChange(e)}/></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-md-12 ">
 
                                                     <ul class="list ">
 
-                                                        <li class="ml-3  "><span class="float-left">Local Post</span><input class="pixel-radio float-right " type="radio" value="0" name="ship" /></li>
+                                                        <li class="ml-3  "><span class="float-left">Local Post</span><input class="pixel-radio float-right " type="radio" value="100" name="ship" onClick={(e)=>this.handleChange(e)} /></li>
 
                                                     </ul>
                                                 </div>
 
                                                 <div class="col-md-12 form-group p_star">
                                                     <span class="placeholder mb-2" data-placeholder="Town/City"><strong>Shipping Location</strong></span>
-                                                    <select class="country_select ml-2" id="district" name="district">
+                                                    <select class="country_select ml-2" id="district" name="district" onChange={(e)=>this.handleChange(e)}>
                                                         <option value="0">Select a District</option>
                                                         <option value="150">Colombo</option>
                                                         <option value="250">Other</option>
@@ -307,7 +307,7 @@ class Cart extends Component {
                                                 <ul class="list list_2">
                                                     <li><a href="#">Subtotal <span id="subt">{this.state.subtotal}</span><span>Rs.</span></a></li>
                                                     <li><a href="#">Shipping <span id="shippingPrice" >{this.state.shipping}</span><span>Rs.</span></a></li>
-                                                    <li><a href="#">Total <strong ><span id="tot">{this.state.subtotal}</span><span>Rs.</span></strong></a></li>
+                                                    <li><a href="#">Total <strong ><span id="tot">{this.state.subtotal + this.state.shipping}</span><span>Rs.</span></strong></a></li>
                                                 </ul>
 
                                                 <div class="text-center">

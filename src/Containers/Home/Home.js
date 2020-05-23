@@ -75,7 +75,7 @@ class Home extends Component {
               <div class="card-body">
                 <p>{product.category}</p>
                 <h4 class="card-product__title">
-                  <a href={'/sp/:'+product._id}>{product.productname}</a>
+                  <a href={'/sp/'+product._id}>{product.productname}</a>
                 </h4>
                 <p class="card-product__price">Rs.{product.price}</p>
                 <p class="card-product__price">{product.discount}% Off</p>

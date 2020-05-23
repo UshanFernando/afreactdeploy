@@ -9,6 +9,7 @@ class CommentView extends Component {
 
     this.state = {
       user: Auth.getUserId(),
+      productId:props.pId,
       name: "",
       message: "",
       rating: 0,
@@ -34,7 +35,7 @@ class CommentView extends Component {
   }
   async loadComments() {
     try {
-      const res = await fetch("http://localhost:5000/comment/comments");
+      const res = await fetch("http://localhost:5000/comment/commentz/"+this.state.productId);
       const data = await res.json();
 
       data.map((comment) => {

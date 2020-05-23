@@ -6,14 +6,13 @@ import Auth from '../../Authentication/Auth';
 class CommentForm extends Component {
     constructor(props) {
         super(props);
-        // this.category = React.createRef();
-        // this.manager = React.createRef();
     
         this.state = {
             user:Auth.getUserId(),
             name: "",
             message:"",
             rating:0,
+            productId:props.pId,
             comments: null,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -48,7 +47,7 @@ class CommentForm extends Component {
           if(this.state.name==""){
             alert('You Have Submitted ' + this.state.rating+' Star Rating anonymously, Thank You!');
           }else {
-            alert('You Have Submitted ' + this.state.rating+' Star Rating, Thank You!');
+            alert('You Have Submitted ' + this.state.productId+'  Star Rating, Thank You!');
           }
         event.preventDefault();
 
@@ -56,12 +55,13 @@ class CommentForm extends Component {
             try {
               const requestOptions = {
                 method: "POST",
-                headers: { "Content-Type": "application/json","token":Auth.getToken },
+                headers: { "Content-Type": "application/json","token":Auth.getToken() },
                 body: JSON.stringify({ 
                     name: this.state.name,
                     message:this.state.message, 
                     rating:this.state.rating,
-                    user:this.state.user
+                    user:this.state.user,
+                    product:this.state.productId
                   
                   }),
               };
