@@ -50,7 +50,7 @@ class Register extends Component {
 			  "http://localhost:5000/register/register",
 			  requestOptions
 			);
-			// this.loadCategories();
+			
 			this.setState({
 				fname: "",
 				lname: "",
