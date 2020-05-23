@@ -32,7 +32,7 @@ code {
   display: block;
 }
 
-.hideElement{
+#hideElement{
   display: none;
 }
 

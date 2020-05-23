@@ -33,7 +33,10 @@ class StoreManagerPage extends Component {
         IsUpdate: false, //checking List_update button pressed
         IsImagedbuttonpressed: false,
         updatingproductId: '',
-    
+        hasProductNameError: false,
+        hasProductPriceError: false,
+        hasProductDiscountError: false,
+        hasproductDescriptionError: false
 
 
     }
@@ -82,9 +85,10 @@ class StoreManagerPage extends Component {
     imagePickedHandler = (e) => {
         let url;
 
-
+        console.log("uploadimage")
         if (e.target.files && e.target.files.length === 1) {
-
+            console.log("files: " + e.target.files.length)
+            console.log("filename: " + e.target.files[0])
             this.setState({
                 IsImagedbuttonpressed: true
 
@@ -114,12 +118,14 @@ class StoreManagerPage extends Component {
     ProductNameChangedhandler = (e) => {
         if (e.target.value.trim().length > 0) {
             this.setState({
-                Productname: e.target.value
+                Productname: e.target.value,
+                hasProductNameError: false
             });
             console.log("product valid");
         } else {
             this.setState({
-                Productname:''
+                Productname: '',
+                hasProductNameError: true
             });
 
         }
@@ -136,11 +142,13 @@ class StoreManagerPage extends Component {
         if (!isNaN(e.target.value)) {
             console.log("price valid");
             this.setState({
-                Price: e.target.value
+                Price: e.target.value,
+                hasProductPriceError: false
             });
-        }else{
+        } else {
             this.setState({
-                Price:0
+                Price: 0,
+                hasProductPriceError: true
             });
             console.log("discount invalid");
         }
@@ -150,11 +158,13 @@ class StoreManagerPage extends Component {
         if (!isNaN(e.target.value)) {
             console.log("discount valid");
             this.setState({
-                Discount: e.target.value
+                Discount: e.target.value,
+                hasProductDiscountError: false
             });
-        }else{
+        } else {
             this.setState({
-                Discount:0
+                Discount: 0,
+                hasProductDiscountError: true
             });
             console.log("discount invalid");
         }
@@ -163,12 +173,14 @@ class StoreManagerPage extends Component {
         if (e.target.value.trim().length > 0) {
             console.log("Descrition valid");
             this.setState({
-                Description: e.target.value
+                Description: e.target.value,
+                hasproductDescriptionError: false
             });
         }
-        else{
+        else {
             this.setState({
-                Description:''
+                Description: '',
+                hasproductDescriptionError: true
             });
             console.log("Descrition Invalid");
         }
@@ -190,7 +202,11 @@ class StoreManagerPage extends Component {
                     Description: '',
                     IsUpdate: false,
                     IsImagedbuttonpressed: false,
-                    updatingproductId: ''
+                    updatingproductId: '',
+                    hasProductNameError: false,
+                    hasProductPriceError: false,
+                    hasProductDiscountError: false,
+                    hasproductDescriptionError: false
 
                 });
             })
@@ -379,6 +395,11 @@ class StoreManagerPage extends Component {
                                 Discount={this.state.Discount}
                                 Description={this.state.Description}
                                 IsUpdate={this.state.IsUpdate}
+
+                                hasProductNameError={this.state.hasProductNameError}
+                                hasProductPriceError={this.state.hasProductPriceError}
+                                hasProductDiscountError={this.state.hasProductDiscountError}
+                                hasproductDescriptionError={this.state.hasproductDescriptionError}
 
                             />
 

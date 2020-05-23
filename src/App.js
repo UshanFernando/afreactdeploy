@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
@@ -12,46 +13,73 @@ import Home from './Containers/Home/Home'
 import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
 import Register from './Containers/Register';
+import Category from "./Containers/Category";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Auth from "./Authentication/Auth";
+
 class App extends Component {
-  cnt=0;
+  
   render() {
     return (
       <Wrapper>
-        
-        <NavBar />
-        
         <Router>
           <Switch>
             <Route path="/sp">
-              <SingleProduct/>
-            </Route >
+              <NavBar />
+              <SingleProduct />
+            </Route>
             <Route path="/cart">
-              <Cart/>
-            </Route >
+              <NavBar />
+              <Cart />
+            </Route>
             <Route path="/login">
+              <NavBar />
               <Login />
-            </Route >
-            <Route path="/AdminPage">
-              <AdminPage />
-            </Route >
+            </Route>
+            <Route
+              path="/logout"
+              render={() => {
+                Auth.logout();
+                return (
+                  <Wrapper>
+                    <NavBar /> <Home />
+                  </Wrapper>
+                );
+              }}
+            />
+
+            <PrivateRoute
+              path="/AdminPage"
+              component={AdminPage}
+              role="admin"
+            />
             <Route path="/Register">
+              <NavBar />
               <Register />
-            </Route >
-            <Route path="/WishList">
-              <WishList />
-            </Route >
+            </Route>
+
+            <PrivateRoute
+              path="/WishList"
+              component={WishList}
+              role="user"
+            />
+            <PrivateRoute
+              path="/StoreManagerPage"
+              component={StoreManagerPage}
+              role="sm"
+            />
             <Route path="/Home">
+              <NavBar />
               <Home />
-            </Route >
-            <Route path="/StoreManagerPage">
-              <StoreManagerPage />
-            </Route >
-            
+            </Route>
+            <Route path="/shop">
+              <NavBar />
+              <Category/>
+            </Route>
           </Switch>
         </Router>
-       
       </Wrapper>
-    )
+    );
   }
 }
 

@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { Button } from 'react-bootstrap';
 import StarSeries from '../SingleProduct/StarSeries';
+import Auth from '../../Authentication/Auth';
 
 class CommentForm extends Component {
     constructor(props) {
         super(props);
-        this.category = React.createRef();
-        this.manager = React.createRef();
+        // this.category = React.createRef();
+        // this.manager = React.createRef();
     
         this.state = {
+            user:Auth.getUserId(),
             name: "",
             message:"",
             rating:0,
-            user:0,
             comments: null,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -55,7 +56,7 @@ class CommentForm extends Component {
             try {
               const requestOptions = {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json","token":Auth.getToken },
                 body: JSON.stringify({ 
                     name: this.state.name,
                     message:this.state.message, 

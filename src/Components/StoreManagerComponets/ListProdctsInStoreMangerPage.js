@@ -21,7 +21,7 @@ class ListProdctsInStoreMangerPage extends Component {
                                     updateProductsHandler={() => this.props.updateProductsHandler(item._id)}
   />
  })
-  ): <tr className="alert alert-danger text-center mt-4 text-center">No Any products left</tr>;                        
+  ):<tr><td><div className="alert alert-danger text-center mt-4 text-center">No Any products left</div></td></tr>;                    
 
        
 
