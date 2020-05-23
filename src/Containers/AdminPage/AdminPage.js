@@ -4,7 +4,7 @@ import StoreManagerManage from "../../Containers/AdminMangeSM/AdminManageSM";
 import Banner from "../../Components/Banner/Banner";
 import "./AdminPage.css";
 import SiteOverviewAdmin from "../../Components/SiteOverviewAdmin/SiteOverviewAdmin";
-import Auth from "../../Authentication/Auth"
+import Auth from "../../Authentication/Auth";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -25,9 +25,17 @@ class AdminPage extends Component {
 
   async componentDidMount() {
     this.loadStats();
+
+    if (this.props.match.params.id == ":mc") {
+      this.scrollToCategories();
+    } else if (this.props.match.params.id == ":msm") {
+      this.scrollToManagers();
+    }
   }
 
   render() {
+    console.log(this.props.match.params.id);
+
     return (
       <div>
         <Banner
@@ -73,8 +81,7 @@ class AdminPage extends Component {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "token":
-           Auth.getToken(),
+          token: Auth.getToken(),
         },
       };
       const res = await fetch(

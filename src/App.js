@@ -20,6 +20,7 @@ import "font-awesome/css/font-awesome.min.css";
 import Register from "./Containers/Register";
 import ResetPassword from "./Containers/ResetPassword";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Category from "./Containers/Category"
 import Auth from "./Authentication/Auth";
 class App extends Component {
   render() {
@@ -50,7 +51,7 @@ class App extends Component {
 
             <PrivateRoute path="/WishList" component={WishList} role="user" />
             <PrivateRoute
-              path="/adminpage"
+              path={["/adminpage/:id","/adminpage"]}
               component={AdminPage}
               role="admin"
             />
@@ -60,7 +61,7 @@ class App extends Component {
             </Route>
             <Route path="/shop">
               <NavBar />
-              {/* <Category/> */}
+              <Category/>
             </Route>
             <Route path="/StoreManagerPage">
               <NavBar />
