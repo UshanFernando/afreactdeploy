@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import './App.css';
 import Wrapper from './Hoc/Wrapper'
 import NavBar from './Components/NavBar/NavBar'
-import  StoreManagerPage from './Containers/StoreManagerPage/StoreManagerPage'
+import StoreManagerPage from './Containers/StoreManagerPage/StoreManagerPage'
 import SingleProduct from './Containers/SingleProduct'
 import Cart from './Containers/Cart'
 import WishList from './Containers/WishList'
@@ -14,11 +14,12 @@ import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
 import Register from './Containers/Register';
 import Category from "./Containers/Category";
+import ResetPassword from "./Containers/ResetPassword";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Auth from "./Authentication/Auth";
 
 class App extends Component {
-  
+
   render() {
     return (
       <Wrapper>
@@ -31,6 +32,13 @@ class App extends Component {
             <Route path="/cart">
               <NavBar />
               <Cart />
+            </Route>
+            <Route path="/profile">
+              <ResetPassword />
+            </Route>
+            <Route path="/Register">
+              <NavBar />
+              <Register />
             </Route>
             <Route path="/login">
               <NavBar />
@@ -49,7 +57,7 @@ class App extends Component {
             />
 
             <PrivateRoute
-              path="/AdminPage"
+              path="/adminpage"
               component={AdminPage}
               role="admin"
             />
@@ -63,6 +71,7 @@ class App extends Component {
               component={WishList}
               role="user"
             />
+
             <PrivateRoute
               path="/StoreManagerPage"
               component={StoreManagerPage}
@@ -74,7 +83,7 @@ class App extends Component {
             </Route>
             <Route path="/shop">
               <NavBar />
-              <Category/>
+              <Category />
             </Route>
           </Switch>
         </Router>

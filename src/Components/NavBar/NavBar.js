@@ -9,7 +9,14 @@ import { render } from "@testing-library/react";
 
 // function NavBar() {
 class NavBar extends Component {
+  state = {
+    isOpen: true
+  };
+
+  toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
+
   render() {
+    const menuClass = `navbar-collapse offset ${this.state.isOpen ? " collapse" : ""}`;
     return (
       <header className="header_area fixed">
         <div className="main_menu">
@@ -21,7 +28,7 @@ class NavBar extends Component {
               <button
                 className="navbar-toggler"
                 type="button"
-                data-toggle="collapse"
+                onClick={this.toggleOpen}
                 data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent"
                 aria-expanded="false"
@@ -32,7 +39,7 @@ class NavBar extends Component {
                 <span className="icon-bar"></span>
               </button>
               <div
-                className="collapse navbar-collapse offset"
+                className={menuClass}
                 id="navbarSupportedContent"
               >
                 <ul className="nav navbar-nav menu_nav ml-auto mr-auto">

@@ -5,13 +5,122 @@ class Category extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:""
+            serverAdd: "http://localhost:5000/",
+            categories: [],
+            search:"",
+            products: []
         };
-
+        this.loadCategories = this.loadCategories.bind(this);
+        this.loadProducts = this.loadProducts.bind(this);
 
     }
+    async componentDidMount() {
+        this.loadCategories();
+        this.loadProducts();
+    }
+    async loadCategories() {
+        try {
+            const res = await fetch("http://localhost:5000/category/category");
+            const categories = await res.json();
+
+            //updateing state with lastest data
+            this.setState({
+                categories: categories,
+            });
+
+        } catch (e) {
+            //if failed to communicate with api this code block will run
+            console.log(e);
+        }
+
+    }
+    async loadProducts(catName) {
+        
+        try {
+        if(catName!=null){
+            const res = await fetch("http://localhost:5000/category/category/"+catName);
+            const products = await res.json();
+            console.log(products);
+            //updateing state with lastest data
+            this.setState({
+                products: products
+            });
+        }else{
+            const res = await fetch("http://localhost:5000/storemanger/products/");
+            const products = await res.json();
+            console.log(products);
+            //updateing state with lastest data
+            this.setState({
+                products: products
+            });
+        }
+        } catch (e) {
+            //if failed to communicate with api this code block will run
+            console.log(e);
+        }
+
+    }
+    handleChange(event) {
+        const val = event.target.value;
+       
+          this.setState({
+            search: val
+          })
+       
+      }
+      async handleSubmit(event) {
+        event.preventDefault();
+        const val = this.state.search;
+        const res = await fetch("http://localhost:5000/category/search/"+val);
+        const products = await res.json();
+          this.setState({
+            products: products
+          })
+          this.loadProducts();
+       
+      }
 
     render() {
+        let categoryList;
+        let productList;
+        if (this.state.categories != null) {
+            categoryList = this.state.categories.map((cat, index) => {
+                return (
+                    <li key={cat._id} class="filter-list"><input onClick={() => this.loadProducts(cat.name)} class="pixel-radio cat" type="radio" id="" name="brand" /><label for="footwear">{cat.name}<span></span></label></li>
+                )
+
+            })
+        }
+        if (this.state.products != null) {
+            productList = this.state.products.map((prd, index) => {
+                return (
+                    <div class="col-4 col-sm-6 col-md-6 col-lg-3">
+                        <div >
+                            <div class="card text-center card-product  zoom" >
+                                <a href=""></a>
+                                <div class="card-product__img">
+                                    <img prdImage class="card-img" src={this.state.serverAdd+prd.productImage} alt={this.state.serverAdd+prd.productImage} />
+
+                                    <ul class="card-product__imgOverlay">
+                                        <li><button ><i class="ti-search"></i></button></li>
+                                        <li><button><i class="ti-shopping-cart"></i></button></li>
+                                        <li><button><i class="ti-heart"></i></button></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body p-0 m-0">
+                                   
+                                        <h4 class="card-product__title p-0 m-0"><a href="" >{prd.productname}</a></h4>
+                                        <p class="card-product__price p-0 m-0">Rs.{prd.price}</p>
+                                        <p class="card-product__price p-0 m-0">{prd.discount}% Off</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+
+            })
+        }
         return (
             <div>
                 <section class="blog-banner-area" id="category">
@@ -43,13 +152,7 @@ class Category extends Component {
                                         <li class="common-filter">
                                             <form action="#">
                                                 <ul>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" value="2" /><label for="men">Men<span> (3600)</span></label></li>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" value="1" /><label for="women">Women<span> (3600)</span></label></li>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" /><label for="accessories">Accessories<span> (3600)</span></label></li>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" /><label for="footwear">Footwear<span> (3600)</span></label></li>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" /><label for="bayItem">Bay item<span> (3600)</span></label></li>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" /><label for="electronics">Electronics<span> (3600)</span></label></li>
-                                                    <li class="filter-list"><input class="pixel-radio cat" type="radio" id="" name="brand" /><label for="food">Food<span> (3600)</span></label></li>
+                                                    {categoryList}
                                                 </ul>
                                             </form>
                                         </li>
@@ -74,49 +177,35 @@ class Category extends Component {
                                         </select> */}
                                     </div>
                                     <div>
+                                        <form onSubmit={(event) => this.handleSubmit(event)}>
                                         <div class="input-group filter-bar-search">
-                                            <input type="text" placeholder="Search" />
+                                            
+                                            <input type="text" placeholder="Search" onChange={(event) => this.handleChange(event)} value={this.state.search} required/>
                                             <div class="input-group-append">
-                                                <button type="button"><i class="ti-search"></i></button>
+                                                <button type="submit"><i class="ti-search"o></i></button>
                                             </div>
+                                            
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
+                                <section class="lattest-product-area pb-40 category-list">
 
                                 <div id="selling_cat">
-                                    <div class="col-4 col-sm-6 col-md-6 col-lg-3">
-                                        <div >
-                                            <div class="card text-center card-product  zoom" >
-                                                <a href=""></a>
-                                                    <div class="card-product__img">
-                                                        <img class="card-img" src="" alt="ss" />
-                    
-                                                    <ul class="card-product__imgOverlay">
-                                                        <li><button ><i class="ti-search"></i></button></li>
-                                                        <li><button><i class="ti-shopping-cart"></i></button></li>
-                                                        <li><button><i class="ti-heart"></i></button></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="card-body p-0 m-0">
-                                                    <a href="">
-                                                        <h4 class="card-product__title p-0 m-0"><a href="" ></a></h4>
-                                                        <p class="card-product__price p-0 m-0">Rs.</p></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="row" >
+                                        {productList}
                                 </div>
-
+                                </div>
+                                        </section>
 
 
                             </div>
 
                         </div>
                     </div>
-                 
-            </section>
-        </div >
+
+                </section>
+            </div >
 
         )
     }
