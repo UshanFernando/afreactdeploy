@@ -14,8 +14,7 @@ class SingleProduct extends Component {
 
 	constructor(props) {
 		super(props);
-		this.category = React.createRef();
-		this.manager = React.createRef();
+		
 
 		this.state = {
 			count: 1,
@@ -24,9 +23,11 @@ class SingleProduct extends Component {
 			rating: 0,
 			user: 0,
 			tab: 3,
-			qty:1,
-			comments: null,
+			qty: 1,
+			pid: "5ec8ae3e1e6fdd2c24c32e75",
+			comments: null
 		};
+		
 
 	}
 
@@ -39,107 +40,12 @@ class SingleProduct extends Component {
 
 		});
 	}
-	
+
 	refreshComments = () => {
 		this.refs.accessCommentView.loadComments();
 	}
 
 	render() {
-		let tab;
-		let tab_buttons;
-
-		if (this.state.tab == 1) {
-
-
-			tab_buttons = <ul className="nav nav-tabs" id="myTab" role="tablist">
-				<li className="nav-item">
-					<a className="nav-link active" onClick={() => this.handleProductTabs(1)} id="home-tab" data-toggle="tab" href role="tab" aria-controls="home" aria-selected="true">Overview</a>
-				</li>
-				<li className="nav-item">
-					<a className="nav-item" onClick={() => this.handleProductTabs(2)} id="profile-tab" data-toggle="tab" href role="tab" aria-controls="profile"
-						aria-selected="false">Specification</a>
-				</li>
-
-				<li className="nav-item">
-					<a className="nav-item" onClick={() => this.handleProductTabs(3)} id="review-tab" data-toggle="tab" href role="tab" aria-controls="review"
-						aria-selected="false">Reviews</a>
-				</li>
-			</ul>
-			tab = <div className="" id="home" role="tabpanel" aria-labelledby="home-tab">
-				<p id="Test"><h1>Moda Senula</h1></p>
-			</div>
-		} else if (this.state.tab == 2) {
-			tab_buttons = <ul className="nav nav-tabs" id="myTab" role="tablist">
-				<li className="nav-item">
-					<a className="nav-link " onClick={() => this.handleProductTabs(1)} id="home-tab" data-toggle="tab" href role="tab" aria-controls="home" aria-selected="true">Overview</a>
-				</li>
-				<li className="nav-item active">
-					<a className="nav-link active" onClick={() => this.handleProductTabs(2)} id="profile-tab" data-toggle="tab" href role="tab" aria-controls="profile"
-						aria-selected="false">Specification</a>
-				</li>
-
-				<li className="nav-item ">
-					<a className="nav-link" onClick={() => this.handleProductTabs(3)} id="review-tab" data-toggle="tab" href role="tab" aria-controls="review"
-						aria-selected="false">Reviews</a>
-				</li>
-			</ul>
-
-			tab = <div className=" " id="profile" role="" aria-labelledby="">
-				<div className="table-responsive">
-					<table className="table">
-						<tbody>
-
-							<tr>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-
-							</tr>
-
-
-
-							<tr>
-								<td>
-									<h5>Each Box contains</h5>
-								</td>
-								<td>
-									<h5>60pcs</h5>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-
-
-		} else {
-			tab_buttons = <ul className="nav nav-tabs" id="myTab" role="tablist">
-				<li className="nav-item">
-					<a className="nav-link " onClick={() => this.handleProductTabs(1)} id="home-tab" data-toggle="tab" href role="tab" aria-controls="home" aria-selected="true">Overview</a>
-				</li>
-				<li className="nav-item">
-					<a className="nav-link" onClick={() => this.handleProductTabs(2)} id="profile-tab" data-toggle="tab" href role="tab" aria-controls="profile"
-						aria-selected="false">Specification</a>
-				</li>
-
-				<li className="nav-item ">
-					<a className="nav-link active" onClick={() => this.handleProductTabs(3)} id="review-tab" data-toggle="tab" href role="tab" aria-controls="review"
-						aria-selected="false">Reviews</a>
-				</li>
-			</ul>
-
-			tab = <div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-				<div className="row">
-					<CommentView ref="accessCommentView" />
-					<CommentForm refComments={this.refreshComments} />
-				</div>
-			</div>
-		}
-
 
 		return (
 			<div>
@@ -178,15 +84,26 @@ class SingleProduct extends Component {
 
 
 				<div className="product_image_area" id="cartToast">
-					<ProductView/>
+					<ProductView pId={this.state.pid} />
 				</div>
 
 
 				<section className="product_description_area">
 					<div className="container" >
-						{tab_buttons}
+						<ul className="nav nav-tabs" id="myTab" role="tablist">
+
+							<li className="nav-item ">
+								<a className="nav-link " onClick={() => this.handleProductTabs(3)} id="review-tab" data-toggle="tab" href role="tab" aria-controls="review"
+									aria-selected="false">Reviews</a>
+							</li>
+						</ul>
 						<div className="tab-content" id="myTabContent">
-							{tab}
+							<div className="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+								<div className="row">
+									<CommentView pId={this.state.pid} ref="accessCommentView" />
+									<CommentForm pId={this.state.pid} refComments={this.refreshComments} />
+								</div>
+							</div>
 
 
 

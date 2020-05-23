@@ -5,36 +5,68 @@ import Section1 from "../../Components/HomePage/Section1";
 
 
 class Home extends Component{
+  constructor(props) {
+    super(props);
 
-  state={
-    products:[]
+    this.state = { 
+      serverAdd: "http://localhost:5000/",
+      products: []
+    };
+    this.loadComments = this.loadComments.bind(this);
   }
 
-  componentDidMount(){
-    axios.get('http://localhost:5000/storemanger/products')
-    .then(res=>{
-     let pro=res.data;
+  async componentDidMount() {
+    this.loadComments();
+  }
+  async loadComments() {
+    try {
+      const res = await fetch("http://localhost:5000/storemanger/products/");
+      const data = await res.json();
+
+      
+      console.log(data);
+      //updateing state with lastest data
       this.setState({
-        products:pro
-    });
-    });
-       
+        products: data,
+      });
+
+    } catch (e) {
+      //if failed to communicate with api this code block will run
+      console.log(e);
+    }
+
+    
+
   }
 
   
 
     
     render(){
-     
-      let firstsection=this.state.products.forEach(fist=>{
-        
-        return (
-         <Section1 category={fist.category} name={fist.productname} url={fist.productImage}/>
-        );
-          
-       
-            
-       });
+     let productlist;
+      if (this.state.products != null) {
+        productlist = this.state.products.map((product, index) => {
+          return (
+            <div class="col-md-6 col-lg-4 col-xl-3" key={index}>
+          <div class="card text-center card-product">
+          <div class="card-product__img">
+          <img src={this.state.serverAdd+product.productImage}/>
+            <ul class="card-product__imgOverlay">
+              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-shopping-cart"></i></button></li>
+              <li><button><i class="ti-heart"></i></button></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <p>{product.category}</p>
+          <h4 class="card-product__title"><a href="single-product.html">{product.productname}</a></h4>
+            <p class="card-product__price">Rs.{product.price}</p>
+          </div>
+        </div>
+        </div>)
+  
+        })
+      }
       
 
         return(
@@ -66,7 +98,7 @@ class Home extends Component{
     <section class="section-margin mt-0">
       <div class="owl-carousel owl-theme hero-carousel">
 
-          {firstsection}
+          {/* {firstsection} */}
      
       </div>
     </section>
@@ -81,142 +113,14 @@ class Home extends Component{
           <h2>Trending <span class="section-intro__style">Product</span></h2>
         </div>
         <div class="row">
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product1.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Accessories</p>
-                <h4 class="card-product__title"><a href="single-product.html">Quartz Belt Watch</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product2.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Beauty</p>
-                <h4 class="card-product__title"><a href="single-product.html">Women Freshwash</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product3.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Decor</p>
-                <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product4.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Decor</p>
-                <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product5.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Accessories</p>
-                <h4 class="card-product__title"><a href="single-product.html">Man Office Bag</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product6.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Kids Toy</p>
-                <h4 class="card-product__title"><a href="single-product.html">Charging Car</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product7.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Accessories</p>
-                <h4 class="card-product__title"><a href="single-product.html">Blutooth Speaker</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div> 
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-              <img src={require('../../Components/img/product8.png')} />
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Kids Toy</p>
-                <h4 class="card-product__title"><a href="#">Charging Car</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
+         
+          
+          {productlist}
+         
+          
+          
+          
+          
         </div>
       </div>
     </section>
