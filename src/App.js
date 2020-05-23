@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
@@ -15,31 +14,7 @@ import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
 import Register from './Containers/Register';
 import ResetPassword from './Containers/ResetPassword'
-=======
-import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
-import "./App.css";
-import Wrapper from "./Hoc/Wrapper";
-import NavBar from "./Components/NavBar/NavBar";
-import StoreManagerPage from "./Containers/StoreManagerPage/StoreManagerPage";
-import EditProducts from "./Components/StoreManagerComponets/EditProducts";
-import SingleProduct from "./Containers/SingleProduct";
-import Cart from "./Containers/Cart";
-import WishList from "./Containers/WishList";
-import AdminPage from "./Containers/AdminPage/AdminPage";
-import Category from "./Containers/Category";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import Home from "./Containers/Home/Home";
-import Login from "./Containers/Login";
-import "font-awesome/css/font-awesome.min.css";
-import Register from "./Containers/Register";
-import Auth from "./Authentication/Auth";
->>>>>>> 4a2ecef5e7611f0dd4fc72a261e081a33df6cb79
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 class App extends Component {
   // cnt = 0;
   // constructor(props) {
@@ -65,7 +40,6 @@ class App extends Component {
             <Route path="/login">
               <NavBar />
               <Login />
-<<<<<<< HEAD
             </Route >
             <Route path="/profile">
               <ResetPassword />
@@ -73,26 +47,6 @@ class App extends Component {
             <Route path="/AdminPage">
               <AdminPage />
             </Route >
-=======
-            </Route>
-            <Route
-              path="/logout"
-              render={() => {
-                Auth.logout();
-                return (
-                  <Wrapper>
-                    <NavBar /> <Home />
-                  </Wrapper>
-                );
-              }}
-            />
-
-            <PrivateRoute
-              path="/AdminPage"
-              component={AdminPage}
-              role="admin"
-            />
->>>>>>> 4a2ecef5e7611f0dd4fc72a261e081a33df6cb79
             <Route path="/Register">
               <NavBar />
               <Register />
@@ -109,7 +63,7 @@ class App extends Component {
             </Route>
             <Route path="/shop">
               <NavBar />
-              <Category/>
+              {/* <Category/> */}
             </Route>
             <Route path="/StoreManagerPage">
               <NavBar />

@@ -125,28 +125,6 @@ class NavBar extends Component {
                   </li>
                 </ul>
 
-<<<<<<< HEAD
-                                </ul>
-
-                                <ul className="nav-shop">
-                                    <li className="nav-item">
-                                        <form className="form-inline active-cyan-4">
-                                            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
-                                            <i className="fas fa-search" aria-hidden="true"></i>
-                                        </form>
-                                    </li>
-                                    <li className="nav-item"><a href="/WishList"><button><i className="far fa-heart"></i><span className="nav-shop__circle">3</span></button></a> </li>
-                                    <li className="nav-item"><a href="/cart"><button><i className="ti-shopping-cart"></i><span className="nav-shop__circle">3</span></button></a> </li>
-                                    <li className="nav-item"><a className="button button-header" href="/login">Login/Register</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-        );
-    }
-=======
                 <ul className="nav-shop">
                   <li className="nav-item">
                     {/* <form class="form-inline active-cyan-4">
@@ -190,7 +168,6 @@ class NavBar extends Component {
       </header>
     );
   }
->>>>>>> 4a2ecef5e7611f0dd4fc72a261e081a33df6cb79
 }
 
 export default NavBar;
