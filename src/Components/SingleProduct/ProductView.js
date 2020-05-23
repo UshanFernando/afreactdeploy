@@ -6,16 +6,16 @@ class ProductView extends Component {
         super(props);
 
         this.state = {
-            user:Auth.getUserId(),
+            user: Auth.getUserId(),
             qty: 1,
-            id:props.pId,
+            id: props.pId,
             productname: "",
             category: "",
             price: 0,
             discount: 0,
             description: "",
             productImage: "",
-            products:[],
+            products: [],
             serverAdd: "http://localhost:5000/"
 
         };
@@ -33,7 +33,7 @@ class ProductView extends Component {
 
             const res = await fetch("http://localhost:5000/storemanger/products/" + this.state.id);
             const data = await res.json();
-            
+
             //updateing state with lastest data
             this.setState({
                 products: data,
@@ -44,7 +44,7 @@ class ProductView extends Component {
                 description: data.description,
                 productImage: data.productImage,
             });
-            console.log(this.state.products);
+            
         } catch (e) {
             //if failed to communicate with api this code block will run
             console.log(e);
@@ -53,32 +53,42 @@ class ProductView extends Component {
     }
     async handleSubmit(event) {
         event.preventDefault();
-        alert(this.state.id);
 
 
-        if (this.state.id != null) {
-            try {
-                const requestOptions = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json","token":Auth.getToken()},
-                    body: JSON.stringify({
-                        user: this.state.user,
-                        product: this.state.products,
-                        quantity: this.state.qty
-                    }),
-                };
-                await fetch(
-                    "http://localhost:5000/cart/newCart",
-                    requestOptions
-                );
+        const res1 = await fetch("http://localhost:5000/cart/count/" + this.state.user + "/" + this.state.id);
+        const data1 = await res1.json();
+        
+        if (data1 == 0) {
+            const res = await fetch("http://localhost:5000/storemanger/products/" + this.state.id);
+            const data = await res.json();
 
-                this.setState({
+            if (this.state.id != null) {
+                try {
+                    const requestOptions = {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "token": Auth.getToken() },
+                        body: JSON.stringify({
+                            user: this.state.user,
+                            product: this.state.products,
+                            quantity: this.state.qty
+                        }),
+                    };
+                    await fetch(
+                        "http://localhost:5000/cart/newCart",
+                        requestOptions
+                    );
 
-                    qty: 1
-                });
-            } catch (e) {
-                console.log(e);
+                    this.setState({
+
+                        qty: 1
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+                alert("One item added to the Cart");
             }
+        } else {
+            alert("You have already added this product to the cart");
         }
 
 
@@ -86,34 +96,39 @@ class ProductView extends Component {
     }
     async handleWishlistSubmit(event) {
         event.preventDefault();
-        alert(this.state.id);
+        const res1 = await fetch("http://localhost:5000/wishList/count/" + this.state.user + "/" + this.state.id);
+        const data1 = await res1.json();
+       
+        if (data1 == 0) {
 
+            if (this.state.id != null) {
+                try {
+                    const requestOptions = {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "token": Auth.getToken() },
+                        body: JSON.stringify({
+                            user: this.state.user,
+                            product: this.state.id,
+                            quantity: this.state.qty
+                        }),
+                    };
+                    await fetch(
+                        "http://localhost:5000/wishList/newWishList",
+                        requestOptions
+                    );
 
-        if (this.state.id != null) {
-            try {
-                const requestOptions = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        user: this.user.id,
-                        product: this.state.id,
-                        quantity: this.state.qty
-                    }),
-                };
-                await fetch(
-                    "http://localhost:5000/wishList/newWishList",
-                    requestOptions
-                );
+                    this.setState({
 
-                this.setState({
-
-                    qty: 1
-                });
-            } catch (e) {
-                console.log(e);
+                        qty: 1
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+                alert("One item added to the Wish List");
             }
+        } else {
+            alert("You have already added this product to the Wish List");
         }
-
 
 
     }
@@ -141,7 +156,7 @@ class ProductView extends Component {
                     <div className="col-lg-6">
                         <div className="owl-carousel owl-theme s_Product_carousel">
                             <div className="single-prd-item">
-                                <img className="img-fluid" src={this.state.serverAdd+this.state.productImage} alt={this.state.serverAdd+this.state.productImage} />
+                                <img className="img-fluid" src={this.state.serverAdd + this.state.productImage} alt={this.state.serverAdd + this.state.productImage} />
                             </div>
 
                         </div>
@@ -151,24 +166,24 @@ class ProductView extends Component {
                             <h3>{this.state.productname}</h3>
                             <h2>Rs.{this.state.price}</h2>
                             <ul className="list">
-                                <li><a className="active" href="#"><span>Category</span> :{this.state.category}</a></li>
-                                <li><a href="#"><span>Availibility</span> : In Stock</a></li>
+                                <li><a className="active" href="#"><span>Category</span> : {this.state.category}</a></li>
+                                <li><a href><span>Discount</span> : {this.state.discount}% Off</a></li>
                             </ul>
                             <p >{this.state.description}</p>
 
                             <div className="product_count">
-                                <label for="qty">Quantity:</label>
-                                <input type="text" name="qty" id="sst" size="2" maxlength="12" value={this.state.qty} title="Quantity:" className="input-text qty " />
+                                <label >Quantity:</label>
+                                <input type="text" name="qty" id="sst" size="2"  value={this.state.qty} title="Quantity:" className="input-text qty " />
                                 <button id="up"
-                                    class="increase " type="button"><i class="fas fa-angle-up" onClick={() => this.qtyIncrement(this.state.qty)}></i></button>
+                                    className="increase " type="button"><i className="fas fa-angle-up" onClick={() => this.qtyIncrement(this.state.qty)}></i></button>
                                 <button id="down"
-                                    class="reduced " type="button"><i class="fas fa-angle-down" onClick={() => this.qtyDecrement(this.state.qty)}></i></button>
+                                    className="reduced " type="button"><i className="fas fa-angle-down" onClick={() => this.qtyDecrement(this.state.qty)}></i></button>
 
                             </div>
                             <button type="submit" id="addToCart" className="button primary-btn" onClick={this.handleSubmit}>Add to Cart</button>
                             <div className="card_area d-flex align-items-center">
 
-                                <a className="icon_btn" href onClick={this.handleWishlistSubmit} title="Add to Wish List"><i class="fas fa-heart "></i></a>
+                                <a className="icon_btn" href onClick={this.handleWishlistSubmit} title="Add to Wish List"><i className="fas fa-heart "></i></a>
                             </div>
 
                         </div>

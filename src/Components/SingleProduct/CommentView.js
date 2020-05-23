@@ -41,14 +41,12 @@ class CommentView extends Component {
       data.map((comment) => {
         comment.disabled = false
       });
-      console.log(data);
-      //updateing state with lastest data
+      
       this.setState({
         comments: data,
       });
 
     } catch (e) {
-      //if failed to communicate with api this code block will run
       console.log(e);
     }
 
@@ -177,7 +175,7 @@ class CommentView extends Component {
               <StarSeries count={comment.rating} />
 
             </div>
-            <span id={(comment.user==this.state.user) ? "editDeleteIcons" : "hideElement"} >{(!comment.disabled) ? <i onClick={() => this.editComment(comment._id)} class="far fa-edit fa-lg" /> : <i  onClick={() => this.updateComment(comment._id)} class="fas fa-check fa-lg" /> }&emsp;<i onClick={() => this.deleteComment(comment._id)} class="far fa-trash-alt fa-lg"></i>&emsp;</span>
+            <span id={(comment.user==this.state.user) ? "editDeleteIcons" : "hideElement"} >{(!comment.disabled) ? <i onClick={() => this.editComment(comment._id)} className="far fa-edit fa-lg" /> : <i  onClick={() => this.updateComment(comment._id)} className="fas fa-check fa-lg" /> }&emsp;<i onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.deleteComment(comment._id) } }className="far fa-trash-alt fa-lg"></i>&emsp;</span>
           </div>
 
           <textarea className="form-control different-control w-100" name="message" id="textareaASD" cols="30" onChange={(e) => this.handleChange(comment._id, e)} value={comment.message} disabled={(comment.disabled) ? "" : "disabled"} />

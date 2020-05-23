@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Auth from '../Authentication/Auth';
 
-import CartTable from '../Components/Cart/CartTable';
 
 class Cart extends Component {
     constructor(props) {
@@ -23,6 +22,8 @@ class Cart extends Component {
         this.loadCartProducts = this.loadCartProducts.bind(this);
         this.singleTotal = this.singleTotal.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.deleteCart = this.deleteCart.bind(this);
+        this.updateCart = this.updateCart.bind(this);
 
     }
     async componentDidMount() {
@@ -38,7 +39,7 @@ class Cart extends Component {
                 item.total =  item.quantity * (item.product.price * (100 - item.product.discount) / 100)
                 sub = sub + item.total 
             });
-            console.log(sub);
+            
             //updateing state with lastest data
             this.setState({
                 cartProducts: data,
@@ -53,20 +54,46 @@ class Cart extends Component {
             console.log(e);
         }
     }
-    async deleteComment(id) {
+    async deleteCart(id) {
+        
         try {
           const requestOptions = {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: id }),
+            headers: { "Content-Type": "application/json","token":Auth.getToken() },
+            
           };
-          await fetch("http://localhost:5000/cart/carts"+id, requestOptions);
-          alert("Deleted");
+          await fetch("http://localhost:5000/cart/carts/"+id, requestOptions);
+          
           this.loadCartProducts();
         } catch (e) {
           console.log(e);
         }
       }
+      async updateCart(id) {
+        try {
+          const items = this.state.cartProducts;
+          let Cart=items.filter(item => item._id==id).map(item => {
+            return item;
+          })
+          
+          
+          const requestOptions = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json","token":Auth.getToken() },
+            
+            body: JSON.stringify({
+              id: Cart[0]._id,
+              quantity: Cart[0].quantity
+            }),
+          };
+          await fetch("http://localhost:5000/cart/carts", requestOptions);
+          alert("Updated");
+        
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    
     handleChange(event) {
         
         const target = event.target;
@@ -116,6 +143,7 @@ class Cart extends Component {
         this.setState({
             cartProducts: items
         })
+        this.updateCart(id)
         this.singleTotal(id);
     }
     qtyDecrement(id) {
@@ -130,6 +158,7 @@ class Cart extends Component {
         this.setState({
             cartProducts: items
         })
+        this.updateCart(id)
         this.singleTotal(id);
     }
     render() {
@@ -140,32 +169,35 @@ class Cart extends Component {
 
                 return (<tr>
                     <td>
-                        <div class="media">
-                            <div class="my-4 mr-3">
-                                <button id="" type="button" class="page-link"><i class="fas fa-trash-alt"></i>
+                        <div className="media">
+                            <div className="my-4 mr-3">
+                                <button id="" type="button" className="page-link"onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.deleteCart(item._id) } }><i className="fas fa-trash-alt" ></i>
                                 </button>
                             </div>
-                            <div class="d-flex" height="100px">
+                            <a href={'/sp/'+item.product._id}>
+                            <div className="d-flex" height="100px">
                                 <img width="150px" src={this.state.serverAdd + item.product.productImage} alt={this.state.serverAdd + item.product.productImage} />
+                            </div></a>
+                            
+                            <div className="media-body">
+                            <a href={'/sp/'+item.product._id}> <p>{item.product.productname}</p></a>
                             </div>
-                            <div class="media-body">
-                                <p>{item.product.productname}</p>
-                            </div>
+                            
                         </div>
                     </td>
                     <td>
                         <h5>Rs.{item.product.price}</h5>
                     </td>
                     <td >
-                        <div class="product_count">
+                        <div className="product_count">
 
                             <input type="text" name="qty" id="" title="Quantity:"
-                                class="input-text qty" value={item.quantity}  />
+                                className="input-text qty" value={item.quantity}  />
 
                             <button id="up"
-                                class="increase " type="button" onClick={() => this.qtyIncrement(item._id)}><i class="fas fa-angle-up"></i></button>
+                                className="increase " type="button" onClick={() => this.qtyIncrement(item._id)}><i className="fas fa-angle-up"></i></button>
                             <button id="down"
-                                class="reduced " type="button"><i class="fas fa-angle-down" onClick={() => this.qtyDecrement(item._id)}></i></button>
+                                className="reduced " type="button"><i className="fas fa-angle-down" onClick={() => this.qtyDecrement(item._id)}></i></button>
                         </div>
                     </td>
                     <td >
@@ -181,15 +213,15 @@ class Cart extends Component {
             <div>
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 
-                <section class="blog-banner-area" id="category">
-                    <div class="container h-100">
-                        <div class="blog-banner">
-                            <div class="text-center">
+                <section className="blog-banner-area" id="category">
+                    <div className="container h-100">
+                        <div className="blog-banner">
+                            <div className="text-center">
                                 <h1>Shopping Cart</h1>
-                                <nav aria-label="breadcrumb" class="banner-breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                                <nav aria-label="breadcrumb" className="banner-breadcrumb">
+                                    <ol className="breadcrumb">
+                                        <li className="breadcrumb-item"><a href="#">Home</a></li>
+                                        <li className="breadcrumb-item active" aria-current="page">Shopping Cart</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -197,27 +229,27 @@ class Cart extends Component {
                     </div>
                 </section>
 
-                {/* <div class="toast m-5 alert alert-success shadow " id="myToast" style="position: fixed; top:0; right: 0;z-index:10000" data-delay="5000">
-         <div class="toast-header">
-      <img src="img/bell.png" width="20px" class="rounded mr-2" alt="..."/>
-      <strong class="mr-auto"> </strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                {/* <div className="toast m-5 alert alert-success shadow " id="myToast" style="position: fixed; top:0; right: 0;z-index:10000" data-delay="5000">
+         <div className="toast-header">
+      <img src="img/bell.png" width="20px" className="rounded mr-2" alt="..."/>
+      <strong className="mr-auto"> </strong>
+      <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="toast-body">
-        <strong class="" style="font-size:20px;">Please fill the shipping form!</strong>
+    <div className="toast-body">
+        <strong className="" style="font-size:20px;">Please fill the shipping form!</strong>
     </div>
     </div> */}
 
 
                 <div id="cartTable">
                     <div>
-                        <section class="cart_area mb-0">
-                            <div class="container ">
-                                <div class="cart_inner">
-                                    <div class="table-responsive">
-                                        <table class="table">
+                        <section className="cart_area mb-0">
+                            <div className="container ">
+                                <div className="cart_inner">
+                                    <div className="table-responsive">
+                                        <table className="table">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Product</th>
@@ -232,7 +264,7 @@ class Cart extends Component {
 
                                                 {cartList}
 
-                                                <tr class="bottom_button ">
+                                                <tr className="bottom_button ">
                                                     <td>
 
                                                     </td>
@@ -257,61 +289,61 @@ class Cart extends Component {
                                 </div>
                             </div>
                         </section>
-                        <section class="checkout_area section-margin--small mt-0">
-                            <div class="container">
+                        <section className="checkout_area section-margin--small mt-0">
+                            <div className="container">
 
-                                <div class="billing_details">
-                                    <div class="row">
-                                        <div class="col-lg-6">
+                                <div className="billing_details">
+                                    <div className="row">
+                                        <div className="col-lg-6">
                                             <h3>Shipping Details</h3>
-                                            <form class="row contact_form" action="" method="post" id="shipping-form" >
+                                            <form className="row contact_form" action="" method="post" id="shipping-form" >
 
 
 
-                                                <div class="col-md-12 ">
-                                                    <span class="placeholder mb-2" data-placeholder="Town/City"><strong>Method</strong></span>
-                                                    <ul class="list ">
-                                                        <li class=" ml-3"><label class="float-left">Domex<span></span></label><input class="pixel-radio float-right " type="radio" value="500" name="ship" onClick={(e)=>this.handleChange(e)}/></li>
+                                                <div className="col-md-12 ">
+                                                    <span className="placeholder mb-2" data-placeholder="Town/City"><strong>Method</strong></span>
+                                                    <ul className="list ">
+                                                        <li className=" ml-3"><label className="float-left">Domex<span></span></label><input className="pixel-radio float-right " type="radio" value="500" name="ship" onClick={(e)=>this.handleChange(e)}/></li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-12 ">
+                                                <div className="col-md-12 ">
 
-                                                    <ul class="list ">
+                                                    <ul className="list ">
 
-                                                        <li class="ml-3  "><span class="float-left">Local Post</span><input class="pixel-radio float-right " type="radio" value="100" name="ship" onClick={(e)=>this.handleChange(e)} /></li>
+                                                        <li className="ml-3  "><span className="float-left">Local Post</span><input className="pixel-radio float-right " type="radio" value="100" name="ship" onClick={(e)=>this.handleChange(e)} /></li>
 
                                                     </ul>
                                                 </div>
 
-                                                <div class="col-md-12 form-group p_star">
-                                                    <span class="placeholder mb-2" data-placeholder="Town/City"><strong>Shipping Location</strong></span>
-                                                    <select class="country_select ml-2" id="district" name="district" onChange={(e)=>this.handleChange(e)}>
+                                                <div className="col-md-12 form-group p_star">
+                                                    <span className="placeholder mb-2" data-placeholder="Town/City"><strong>Shipping Location</strong></span>
+                                                    <select className="country_select ml-2" id="district" name="district" onChange={(e)=>this.handleChange(e)}>
                                                         <option value="0">Select a District</option>
                                                         <option value="150">Colombo</option>
                                                         <option value="250">Other</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-12 form-group p_star">
-                                                    <span class="placeholder mb-2" data-placeholder="Town/City"><strong>Zip Code</strong></span>
-                                                    <input type="text" class="form-control ml-2" id="city" placeholder="600##" name="zip" />
+                                                <div className="col-md-12 form-group p_star">
+                                                    <span className="placeholder mb-2" data-placeholder="Town/City"><strong>Zip Code</strong></span>
+                                                    <input type="text" className="form-control ml-2" id="city" placeholder="600##" name="zip" />
 
                                                 </div>
 
                                             </form>
                                         </div>
 
-                                        <div class="col-lg-5 ml-5">
-                                            <div class="order_box">
+                                        <div className="col-lg-5 ml-5">
+                                            <div className="order_box">
                                                 <h2>Your Order</h2>
 
-                                                <ul class="list list_2">
+                                                <ul className="list list_2">
                                                     <li><a href="#">Subtotal <span id="subt">{this.state.subtotal}</span><span>Rs.</span></a></li>
                                                     <li><a href="#">Shipping <span id="shippingPrice" >{this.state.shipping}</span><span>Rs.</span></a></li>
                                                     <li><a href="#">Total <strong ><span id="tot">{this.state.subtotal + this.state.shipping}</span><span>Rs.</span></strong></a></li>
                                                 </ul>
 
-                                                <div class="text-center">
-                                                    <button class="button button-paypal" id="shippingSubmit">Proceed to Checkout</button>
+                                                <div className="text-center">
+                                                    <button className="button button-paypal" id="shippingSubmit">Proceed to Checkout</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -47,7 +47,7 @@ class CommentForm extends Component {
           if(this.state.name==""){
             alert('You Have Submitted ' + this.state.rating+' Star Rating anonymously, Thank You!');
           }else {
-            alert('You Have Submitted ' + this.state.productId+'  Star Rating, Thank You!');
+            alert('You Have Submitted ' + this.state.rating+'  Star Rating, Thank You!');
           }
         event.preventDefault();
 
