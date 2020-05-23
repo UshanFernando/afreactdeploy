@@ -14,6 +14,7 @@ import SingleProduct from "./Containers/SingleProduct";
 import Cart from "./Containers/Cart";
 import WishList from "./Containers/WishList";
 import AdminPage from "./Containers/AdminPage/AdminPage";
+import Category from "./Containers/Category";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Home from "./Containers/Home/Home";
 import Login from "./Containers/Login";
@@ -76,6 +77,10 @@ class App extends Component {
             <Route path="/Home">
               <NavBar />
               <Home />
+            </Route>
+            <Route path="/shop">
+              <NavBar />
+              <Category/>
             </Route>
             <Route path="/StoreManagerPage">
               <NavBar />

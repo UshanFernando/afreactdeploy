@@ -14,8 +14,7 @@ class SingleProduct extends Component {
 
 	constructor(props) {
 		super(props);
-		this.category = React.createRef();
-		this.manager = React.createRef();
+		
 
 		this.state = {
 			count: 1,
