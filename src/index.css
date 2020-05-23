@@ -47,3 +47,10 @@ code {
 
     resize: none; /*remove the resize handle on the bottom right*/
 }
+#prdImage{
+  width: 100%;
+}
+.card-body{
+  overflow: hidden;
+  width: 100%;
+}
