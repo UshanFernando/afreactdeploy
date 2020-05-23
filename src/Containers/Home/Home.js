@@ -50,7 +50,7 @@ class Home extends Component{
             <div class="col-md-6 col-lg-4 col-xl-3" key={index}>
           <div class="card text-center card-product">
           <div class="card-product__img">
-          <img src={this.state.serverAdd+product.productImage}/>
+          <img id="prdImage" src={this.state.serverAdd+product.productImage}/>
             <ul class="card-product__imgOverlay">
               <li><button><i class="ti-search"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -61,6 +61,7 @@ class Home extends Component{
             <p>{product.category}</p>
           <h4 class="card-product__title"><a href="single-product.html">{product.productname}</a></h4>
             <p class="card-product__price">Rs.{product.price}</p>
+            <p class="card-product__price">{product.discount}% Off</p>
           </div>
         </div>
         </div>)
