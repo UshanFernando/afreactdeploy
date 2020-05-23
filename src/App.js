@@ -13,6 +13,7 @@ import Home from './Containers/Home/Home'
 import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
 import Register from './Containers/Register';
+import ResetPassword from './Containers/ResetPassword'
 class App extends Component {
   cnt=0;
   render() {
@@ -31,6 +32,9 @@ class App extends Component {
             </Route >
             <Route path="/login">
               <Login />
+            </Route >
+            <Route path="/profile">
+              <ResetPassword />
             </Route >
             <Route path="/AdminPage">
               <AdminPage />

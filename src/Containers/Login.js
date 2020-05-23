@@ -48,10 +48,11 @@ class Login extends Component {
         const data = await res.json();
 
         if (data.hasOwnProperty("accessToken")) {
+          localStorage.setItem("token", data);
           this.setState({
             redirect: true,
           });
-          localStorage.setItem("token", data);
+          
         } else {
           this.setState({
             userRegMsg: data.error,
@@ -79,7 +80,7 @@ class Login extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/Home" />;
+      return <Redirect to="/profile" />;
     }
     return (
       <div>
@@ -150,7 +151,7 @@ class Login extends Component {
                       >
                         Log In
                       </button>
-                      <a href="#">Forgot Password?</a>
+                      {/* <a href="#">Forgot Password?</a> */}
                       <Alert
                         show={this.state.userRegAlert}
                         theme={this.state.userRegTheme}

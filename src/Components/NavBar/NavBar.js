@@ -55,15 +55,15 @@ class NavBar extends Component {
                                 </ul>
 
                                 <ul className="nav-shop">
-                                    <li class="nav-item">
-                                        <form class="form-inline active-cyan-4">
+                                    <li className="nav-item">
+                                        <form className="form-inline active-cyan-4">
                                             <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
-                                            <i class="fas fa-search" aria-hidden="true"></i>
+                                            <i className="fas fa-search" aria-hidden="true"></i>
                                         </form>
                                     </li>
-                                    <li className="nav-item"><a href="/WishList"><button><i class="far fa-heart"></i><span className="nav-shop__circle">3</span></button></a> </li>
+                                    <li className="nav-item"><a href="/WishList"><button><i className="far fa-heart"></i><span className="nav-shop__circle">3</span></button></a> </li>
                                     <li className="nav-item"><a href="/cart"><button><i className="ti-shopping-cart"></i><span className="nav-shop__circle">3</span></button></a> </li>
-                                    <li class="nav-item"><a class="button button-header" href="/login">Login/Register</a></li>
+                                    <li className="nav-item"><a className="button button-header" href="/login">Login/Register</a></li>
                                 </ul>
                             </div>
                         </div>
