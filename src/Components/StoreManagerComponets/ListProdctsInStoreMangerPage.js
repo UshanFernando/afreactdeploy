@@ -15,12 +15,13 @@ class ListProdctsInStoreMangerPage extends Component {
                 return <ProductItem productname={item.productname}
                                     key={item._id}
                                     productImage={item.productImage}
-                                    Price={item.Price}
+                                    Price={item.price}
                                     discount={item.discount}
-                        
+                                    DeleteProductsHandler={() => this.props.DeleteProductsHandler(item._id)}
+                                    updateProductsHandler={() => this.props.updateProductsHandler(item._id)}
   />
  })
-  ): <p className="alert alert-danger text-center mt-2">No ToDos Left</p>                        
+  ): <tr className="alert alert-danger text-center mt-4 text-center">No Any products left</tr>;                        
 
        
 
@@ -81,7 +82,8 @@ class ListProdctsInStoreMangerPage extends Component {
                             <thead>
                                 <tr>
                                     <th scope="col storetableheading">Product</th>
-                                    <th scope="col storetableheading">Action</th>
+                                    <th scope="col storetableheading">Update</th>
+                                     <th scope="col storetableheading">Delete</th>
                                     <th scope="col storetableheading">Price</th>
                                     <th scope="col storetableheading">Discount</th>
 

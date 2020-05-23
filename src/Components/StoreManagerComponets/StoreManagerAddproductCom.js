@@ -10,7 +10,9 @@ class StoreManagerAddproductCom extends Component {
                 <form onSubmit={this.props.SubmitDetailsHandler}>
                     <label>Product Name: </label>
                     <div className="form-group">
-                        <input type='text' className="form-control" placeholder="add a product" onChange={this.props.ProductNameChangedhandler} />
+                        <input type='text' required className="form-control" placeholder="add a product" onChange={this.props.ProductNameChangedhandler}
+                         value={this.props.Productname}
+                        />
                     </div>
 
                     <div className="form-group">
@@ -25,7 +27,7 @@ class StoreManagerAddproductCom extends Component {
                                 this.props.categories.map(function (single) {
                                     return <option
                                         key={single._id} selected
-                                        value={single.name}   selected>{single.name}
+                                        value={single.name}  >{single.name}
                                       
                                     </option>;
                                 })
@@ -36,17 +38,23 @@ class StoreManagerAddproductCom extends Component {
 
                     <label>Product Price: </label>
                     <div className="form-group">
-                        <input type='Number' className="form-control" placeholder="add The Price" onChange={this.props.ProductPriceChangedhandler} />
+                        <input type='Number' required className="form-control" placeholder="add The Price" onChange={this.props.ProductPriceChangedhandler}
+                         value={this.props.Price}
+                        />
                     </div>
 
                     <label>Discount </label>
                     <div className="form-group">
-                        <input type='Number' className="form-control" placeholder="Discount" onChange={this.props.DiscountChangedhandler} />
+                        <input type='Number' required className="form-control" placeholder="Discount" onChange={this.props.DiscountChangedhandler}
+                         value={this.props.Discount}
+                        />
                     </div>
 
-
+                    
                     <div className="storeTextArea form-group">
-                        <textarea className="form-control" placeholder="Add Products Details" rows="5" onChange={this.props.DiscriptionChangedhandler} />
+                        <textarea className="form-control" required placeholder="Add Products Details" rows="5" onChange={this.props.DiscriptionChangedhandler} 
+                         value={this.props.Description}
+                        />
 
                     </div>
 
@@ -55,7 +63,7 @@ class StoreManagerAddproductCom extends Component {
                         <div className="Produ_photo_show mx-auto ">
                             {this.props.Imageurl && <img src={this.props.Imageurl} alt="Preview" />}
                         </div>
-                        {!this.props.Imageurl && <p className="alert alert-danger">Please Select a Image and Image Size Should be Less Than 9MB</p>}
+                        {!this.props.Imageurl && <p className="alert alert-danger">Please Select a Image and Image Size Should be Less Than 4MB,Accept only jpg,png,jpeg </p>}
                     </div>
                     <div class="file btn btn-lg btn-primary storeManageFilUpload">
                         Upload Image
@@ -67,7 +75,14 @@ class StoreManagerAddproductCom extends Component {
 
 
 
-                    <button type="submit" className="btn btn-block btn-primary mt-3">Add Product</button>
+                    <button type="submit" className={
+                        this.props. IsUpdate ? "btn btn-block btn-success mt-3"
+                            : "btn btn-block btn-primary mt-3"
+                    }
+                    >
+                        {this.props.IsUpdate ? "Update" : "Add Product"}
+
+                    </button>
 
                 </form>
 

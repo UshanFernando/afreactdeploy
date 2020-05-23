@@ -17,8 +17,13 @@ class ProductItem extends Component {
                     </div>
                 </td>
                 <td className="storemangersecondtd">
-                    <button type="button" type="button" class="btn btn-outline-success"><h5>Update/Delete</h5></button>
+                    <button type="button" type="button" class="btn btn-outline-success" onClick={this.props.updateProductsHandler}><h5>Update</h5></button>
                 </td>
+
+                <td className="storemangersecondtd">
+                    <button type="button" type="button" class="btn btn-outline-danger" onClick={this.props.DeleteProductsHandler}><h5>Delete</h5></button>
+                </td>
+
                 <td className="storemangersecondtd">
                     <h5>{this.props.Price}</h5>
                 </td>

@@ -4,7 +4,6 @@ import './App.css';
 import Wrapper from './Hoc/Wrapper'
 import NavBar from './Components/NavBar/NavBar'
 import  StoreManagerPage from './Containers/StoreManagerPage/StoreManagerPage'
-import EditProducts from './Components/StoreManagerComponets/EditProducts';
 import SingleProduct from './Containers/SingleProduct'
 import Cart from './Containers/Cart'
 import WishList from './Containers/WishList'
@@ -45,13 +44,9 @@ class App extends Component {
               <Home />
             </Route >
             <Route path="/StoreManagerPage">
-              <StoreManagerPage StoreMangerID="5ebfe25de12d862560358088"/>
+              <StoreManagerPage />
             </Route >
-            <Route path="/StoreManagerPage/edit/:id">
-              <EditProducts/>
-            </Route >
-
-
+            
           </Switch>
         </Router>
        
