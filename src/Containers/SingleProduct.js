@@ -25,9 +25,10 @@ class SingleProduct extends Component {
 			user: 0,
 			tab: 3,
 			qty: 1,
-			pid: "5ec805626bd1f1330c97e16c",
+			pid: "5ec8ae3e1e6fdd2c24c32e75",
 			comments: null
 		};
+		
 
 	}
 

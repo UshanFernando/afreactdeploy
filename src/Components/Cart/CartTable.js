@@ -3,8 +3,59 @@ import React, { Component } from 'react';
 
 
 class CartTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+         cartProducts:[],    
+        };
+
+        console.log(props.cartP);
+    }
+    
 
     render() {
+        let cartList;
+        if (this.state.cartProducts!= null) {
+            cartList = this.state.cartProducts.map((item, index) => {
+              return (<span key={item._id}>
+                <td>
+                    <div class="media">
+                        <div class="my-4 mr-3">
+                            <button id="" type="button" class="page-link"><i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <div class="d-flex" height="100px">
+                            <img width="150px" src="img/product/" alt="" />
+                        </div>
+                        <div class="media-body">
+                            <p>{ item.product.productname }</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <h5>{ item.product.price }</h5>
+                </td>
+                <td >
+                    <div class="product_count">
+
+                        <input type="text" name="qty" id="" title="Quantity:"
+                            class="input-text qty" />
+
+                        <button id="up"
+                            class="increase " type="button"><i class="fas fa-angle-up"></i></button>
+                        <button id="down"
+                            class="reduced " type="button"><i class="fas fa-angle-down"></i></button>
+                    </div>
+                </td>
+                <td >
+                    <h5>Rs.100</h5>
+                </td>
+
+            </span>)
+      
+            })
+          }
+
         return (
             <div>
                 <section class="cart_area mb-0">
@@ -23,42 +74,10 @@ class CartTable extends Component {
                                     </thead>
                                     <tbody >
 
-
                                         <tr>
-                                            <td>
-                                                <div class="media">
-                                                    <div class="my-4 mr-3">
-                                                        <button id="" type="button" class="page-link"><i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="d-flex" height="100px">
-                                                        <img width="150px" src="img/product/" alt="" />
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <p>Item 1</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h5>Rs.100</h5>
-                                            </td>
-                                            <td >
-                                                <div class="product_count">
-
-                                                    <input type="text" name="qty" id="" title="Quantity:"
-                                                        class="input-text qty" />
-
-                                                    <button id="up"
-                                                        class="increase " type="button"><i class="fas fa-angle-up"></i></button>
-                                                    <button id="down"
-                                                        class="reduced " type="button"><i class="fas fa-angle-down"></i></button>
-                                                </div>
-                                            </td>
-                                            <td >
-                                                <h5>Rs.100</h5>
-                                            </td>
-
+                                            {cartList}
                                         </tr>
+                                        
                                         <tr>
                                             <td>
                                                 <div class="media">

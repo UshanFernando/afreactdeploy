@@ -6,8 +6,8 @@ import Auth from '../../Authentication/Auth';
 class CommentForm extends Component {
     constructor(props) {
         super(props);
-        this.category = React.createRef();
-        this.manager = React.createRef();
+        // this.category = React.createRef();
+        // this.manager = React.createRef();
     
         this.state = {
             user:Auth.getUserId(),
