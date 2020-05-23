@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import './App.css';
-import Wrapper from './Hoc/Wrapper'
-import NavBar from './Components/NavBar/NavBar'
-import  StoreManagerPage from './Containers/StoreManagerPage/StoreManagerPage'
-import EditProducts from './Components/StoreManagerComponets/EditProducts';
-import SingleProduct from './Containers/SingleProduct'
-import Cart from './Containers/Cart'
-import WishList from './Containers/WishList'
-import AdminPage from './Containers/AdminPage/AdminPage'
-import Home from './Containers/Home/Home'
-import Login from './Containers/Login'
-import 'font-awesome/css/font-awesome.min.css';
-import Register from './Containers/Register';
-import ResetPassword from './Containers/ResetPassword'
-import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import "./App.css";
+import Wrapper from "./Hoc/Wrapper";
+import NavBar from "./Components/NavBar/NavBar";
+import StoreManagerPage from "./Containers/StoreManagerPage/StoreManagerPage";
+import EditProducts from "./Components/StoreManagerComponets/EditProducts";
+import SingleProduct from "./Containers/SingleProduct";
+import Cart from "./Containers/Cart";
+import WishList from "./Containers/WishList";
+import AdminPage from "./Containers/AdminPage/AdminPage";
+import Home from "./Containers/Home/Home";
+import Login from "./Containers/Login";
+import "font-awesome/css/font-awesome.min.css";
+import Register from "./Containers/Register";
+import ResetPassword from "./Containers/ResetPassword";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Auth from "./Authentication/Auth";
 class App extends Component {
-  // cnt = 0;
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     logged: Auth.isAuthenticated(),
-  //     role: Auth.getUserLevel(),
-  //   };
-  // }
   render() {
     return (
       <Wrapper>
@@ -40,22 +38,20 @@ class App extends Component {
             <Route path="/login">
               <NavBar />
               <Login />
-            </Route >
+            </Route>
             <Route path="/profile">
               <ResetPassword />
-            </Route >
-            <Route path="/AdminPage">
-              <AdminPage />
-            </Route >
+            </Route>
             <Route path="/Register">
               <NavBar />
               <Register />
             </Route>
 
+            <PrivateRoute path="/WishList" component={WishList} role="user" />
             <PrivateRoute
-              path="/WishList"
-              component={WishList}
-              role="user"
+              path="/adminpage"
+              component={AdminPage}
+              role="admin"
             />
             <Route path="/Home">
               <NavBar />
@@ -73,6 +69,17 @@ class App extends Component {
               <NavBar />
               <EditProducts />
             </Route>
+            <Route
+              path="/logout"
+              render={() => {
+                Auth.logout();
+                return (
+                  <Wrapper>
+                    <NavBar /> <Home />
+                  </Wrapper>
+                );
+              }}
+            />
           </Switch>
         </Router>
       </Wrapper>
