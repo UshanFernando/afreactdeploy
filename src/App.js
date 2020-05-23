@@ -25,10 +25,11 @@ class App extends Component {
       <Wrapper>
         <Router>
           <Switch>
-            <Route path="/sp">
+            {/* <Route path="/sp/:id">
               <NavBar />
               <SingleProduct />
-            </Route>
+            </Route> */}
+            <Route path="/sp/:id" component={SingleProduct}/> 
             <Route path="/cart">
               <NavBar />
               <Cart />

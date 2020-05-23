@@ -15,6 +15,7 @@ class ProductView extends Component {
             discount: 0,
             description: "",
             productImage: "",
+            products:[],
             serverAdd: "http://localhost:5000/"
 
         };
@@ -32,7 +33,7 @@ class ProductView extends Component {
 
             const res = await fetch("http://localhost:5000/storemanger/products/" + this.state.id);
             const data = await res.json();
-            console.log(data);
+            
             //updateing state with lastest data
             this.setState({
                 products: data,
@@ -43,7 +44,7 @@ class ProductView extends Component {
                 description: data.description,
                 productImage: data.productImage,
             });
-
+            console.log(this.state.products);
         } catch (e) {
             //if failed to communicate with api this code block will run
             console.log(e);
@@ -62,7 +63,7 @@ class ProductView extends Component {
                     headers: { "Content-Type": "application/json","token":Auth.getToken()},
                     body: JSON.stringify({
                         user: this.state.user,
-                        product: this.state.id,
+                        product: this.state.products,
                         quantity: this.state.qty
                     }),
                 };
