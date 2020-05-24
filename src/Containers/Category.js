@@ -148,12 +148,12 @@ class Category extends Component {
         if (this.state.products != null) {
             productList = this.state.products.map((prd, index) => {
                 return (
-                    <div className="col-4 col-sm-6 col-md-6 col-lg-3">
+                    <div className="col-12 col-sm-6 col-md-6 col-lg-3">
                         <div >
                             <div className="card text-center card-product  zoom" >
                                 
                                 <div className="card-product__img">
-                                    <img prdImage className="card-img" src={this.state.serverAdd+prd.productImage} alt={this.state.serverAdd+prd.productImage} />
+                                    <img id="prdImage"  prdImage className="card-img" src={this.state.serverAdd+prd.productImage} alt={this.state.serverAdd+prd.productImage} />
 
                                     <ul className="card-product__imgOverlay">
                                         <a href={'sp/'+prd._id}><li><button ><i className="ti-search"></i></button></li></a>
