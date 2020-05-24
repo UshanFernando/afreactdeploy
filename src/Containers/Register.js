@@ -1,17 +1,7 @@
 import React, { Component, useReducer } from 'react'
 import { Redirect } from "react-router-dom";
 
-const initialState={
-	utype:"user",
-	fname: "",
-	lname: "",
-	email: "",
-	password: "",
-	fnameError: "",
-	lnameError: "",
-	emailError: "",
-	passwordError: ""
-}
+
 
 class Register extends Component {
 
@@ -20,7 +10,17 @@ class Register extends Component {
 		
 		this.addRegister = this.addRegister.bind(this);
 		this.onChange = this.onChange.bind(this);
-		this.state = initialState;
+		this.state = {
+			utype:"user",
+			fname: "",
+			lname: "",
+			email: "",
+			password: "",
+			fnameError: "",
+			lnameError: "",
+			emailError: "",
+			passwordError: ""
+		}
 	  }
 
 	  onChange(event) {
@@ -57,8 +57,8 @@ class Register extends Component {
 			passwordError = "Password can not be blank"
 		}
 
-		if(emailError||fnameError||lnameError||passwordError){
-			this.setState({emailError,fnameError,lnameError,passwordError});
+		if(fnameError||lnameError||emailError||passwordError){
+			this.setState({fnameError,lnameError,emailError,passwordError});
 			return false;
 		}
 		return true;
@@ -71,7 +71,6 @@ class Register extends Component {
 		if(isValid){
 			console.log(this.state);
 
-			this.setState(initialState);
 			this.setState({
 				redirect: true,
 			  });

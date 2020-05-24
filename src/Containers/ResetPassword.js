@@ -121,11 +121,11 @@ export class ResetPassword extends Component {
                     
                     >
                       <button
-                        className="btn btn-md btn-success"
+                        className="btn btn-md btn"
                         
                         style={{ width: "180px", marginLeft: "225px" }}
                       >
-                        <a href="/Home">Go to home</a>
+                        <a href="/Home">Home</a>
                       </button>
                       <h1 className="h3 mb-3 font-weight-normal">
                         Account Details
@@ -205,7 +205,7 @@ export class ResetPassword extends Component {
               }
               className="button"
                       >
-                        Update Details
+                        Update
                       </button>
                     </div>
 
