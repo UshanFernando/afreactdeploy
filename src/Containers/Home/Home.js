@@ -10,6 +10,11 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
+    let usrID = null;
+    if (Auth.isAuthenticated()) {
+      usrID = Auth.getUserId();
+    }
+
     this.state = {
       redirect:false,
       user: "",

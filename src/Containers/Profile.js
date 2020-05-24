@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Auth from "../Authentication/Auth";
-
+import { Redirect } from "react-router-dom";
 
 export class Profile extends Component {
   constructor(props) {
@@ -118,7 +118,10 @@ export class Profile extends Component {
       };
       await fetch("http://localhost:5000/register/register/"+this.state.user, requestOptions);
       
-      this.loadCartProducts();
+      // this.loadCartProducts();
+      this.setState({
+				redirect: true,
+			  });
     } catch (e) {
       console.log(e);
     }
@@ -131,6 +134,10 @@ export class Profile extends Component {
   
 
   render() {
+
+    if (this.state.redirect) {
+      return <Redirect to="/register" />;
+      }
     return (
       <Router>
         <Switch>

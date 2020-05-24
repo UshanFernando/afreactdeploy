@@ -34,6 +34,9 @@ export class AdminManageSM extends Component {
           onChangeFname={this.fnameInputChange}
           onChangeEmail={this.emailInputChange}
           regNewUser={this.registerSM}
+          valueFname={this.state.fname}
+          valueLname={this.state.lname}
+          valueEmail= {this.state.email}
         />
         <Alert
           show={this.state.userRegAlert}

@@ -21,7 +21,7 @@ const CategoriesList = (props) => {
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th colspan="3" scope="col">
+          <th colSpan="3" scope="col">
             Name
           </th>
         </tr>
