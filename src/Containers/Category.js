@@ -15,17 +15,18 @@ class Category extends Component {
             search:"",
             products: []
         };
+        
+        this.loadCategories = this.loadCategories.bind(this);
+        this.loadProducts = this.loadProducts.bind(this);
+
+    }
+    async componentDidMount() {
         if(Auth.isAuthenticated()){
             this.setState({
                 user:Auth.getUserId()
             })
            
         }
-        this.loadCategories = this.loadCategories.bind(this);
-        this.loadProducts = this.loadProducts.bind(this);
-
-    }
-    async componentDidMount() {
         this.loadCategories();
         this.loadProducts();
     }

@@ -25,7 +25,7 @@ async componentDidMount() {
 
 async loadCartProducts() {
   if(Auth.isAuthenticated()){
-    
+
   try {
 
       const res = await fetch("http://localhost:5000/wishList/wishlists/" + Auth.getUserId());
@@ -105,11 +105,11 @@ async deleteWishlist(id) {
           <div className="container h-100">
             <div className="blog-banner">
               <div className="text-center">
-                <h1>Shopping Cart</h1>
+                <h1>Wish List</h1>
                 <nav aria-label="breadcrumb" className="banner-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item"><a href="#">Home</a></li>
-                    <li className="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                    <li className="breadcrumb-item active" aria-current="page">Wish List</li>
                   </ol>
                 </nav>
               </div>

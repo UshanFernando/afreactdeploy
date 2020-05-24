@@ -22,11 +22,7 @@ class CommentView extends Component {
       disabled: false,
       comments: []
     };
-    if(Auth.isAuthenticated()){
-      this.setState({
-        user:Auth.getUserId()
-      })
-    }
+    
     //this.handleChange = this.handleChange.bind(this);
     this.loadComments = this.loadComments.bind(this);
     this.editComment = this.editComment.bind(this);
@@ -36,6 +32,11 @@ class CommentView extends Component {
 
   }
   async componentDidMount() {
+    if(Auth.isAuthenticated()){
+      this.setState({
+        user:Auth.getUserId()
+      })
+    }
     this.loadComments();
   }
   async loadComments() {
