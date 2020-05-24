@@ -65,17 +65,7 @@ class Login extends Component {
     }
   }
 
-  // setemail(event){
-  // 	this.setState({
-  // 		email:event.target.value
-  // 	});
-  // }
 
-  // setpassword(event){
-  // 	this.setState({
-  // 		password:event.target.value
-  // 	});
-  // }
 
   render() {
     if (this.state.redirect) {
@@ -136,12 +126,7 @@ class Login extends Component {
                         onChange={this.onChange}
                       />
                     </div>
-                    {/* <div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector"/>
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div> */}
+                    
                     <div class="col-md-12 form-group">
                       <button
                         type="submit"
@@ -150,7 +135,7 @@ class Login extends Component {
                       >
                         Log In
                       </button>
-                      {/* <a href="#">Forgot Password?</a> */}
+                      
                       <Alert
                         show={this.state.userRegAlert}
                         theme={this.state.userRegTheme}

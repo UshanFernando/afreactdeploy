@@ -1,6 +1,17 @@
 import React, { Component, useReducer } from 'react'
+import { Redirect } from "react-router-dom";
 
-
+const initialState={
+	utype:"user",
+	fname: "",
+	lname: "",
+	email: "",
+	password: "",
+	fnameError: "",
+	lnameError: "",
+	emailError: "",
+	passwordError: ""
+}
 
 class Register extends Component {
 
@@ -9,13 +20,7 @@ class Register extends Component {
 		
 		this.addRegister = this.addRegister.bind(this);
 		this.onChange = this.onChange.bind(this);
-		this.state = {
-		utype:"user",
-		  fname: "",
-		  lname: "",
-		  email: "",
-		  password: ""
-		};
+		this.state = initialState;
 	  }
 
 	  onChange(event) {
@@ -30,9 +35,49 @@ class Register extends Component {
         });
       }
 
+	  validate = ()	=>{
+		let fnameError= "";
+		let lnameError= "";
+		let emailError= "";
+		let passwordError= "";
+
+		if(!this.state.fname){
+			fnameError = "First Name can not be blank"
+		}
+
+		if(!this.state.lname){
+			lnameError = "Last Name can not be blank"
+		}
+
+		if(!this.state.email.includes('@'||'mail.com')){
+			emailError = 'Invalid email';
+		}
+
+		if(!this.state.password){
+			passwordError = "Password can not be blank"
+		}
+
+		if(emailError||fnameError||lnameError||passwordError){
+			this.setState({emailError,fnameError,lnameError,passwordError});
+			return false;
+		}
+		return true;
+	  }
+
 	  async addRegister(event) {
 
 		event.preventDefault();
+		const isValid = this.validate();
+		if(isValid){
+			console.log(this.state);
+
+			this.setState(initialState);
+			this.setState({
+				redirect: true,
+			  });
+		}
+		
+
 		if (this.state.fname.trim() != 0) {
 		  try {
 			const requestOptions = {
@@ -65,6 +110,9 @@ class Register extends Component {
 
 render(){
 
+	if (this.state.redirect) {
+		return <Redirect to="/login" />;
+	  }
     return(
         <div>
             <section class="login_box_area section-margin">
@@ -92,6 +140,13 @@ render(){
                                 onblur="this.placeholder = 'First Name'"
 								value={this.state.fname}
                 				onChange={this.onChange}/>
+
+								
+								<div style={{color:"red"}}>
+									{this.state.fnameError}
+								</div>
+							
+
 							</div>
 
                             <div class="col-md-12 form-group">
@@ -100,6 +155,11 @@ render(){
                                 onblur="this.placeholder = 'Last Name'"
 								value={this.state.lname}
                 				onChange={this.onChange}/>
+
+								<div style={{color:"red"}}>
+									{this.state.lnameError}
+								</div>
+
 							</div>
 
 							<div class="col-md-12 form-group">
@@ -108,6 +168,11 @@ render(){
                                 onblur="this.placeholder = 'Email Address'"
 								value={this.state.email}
                 				onChange={this.onChange}/>
+
+								<div style={{color:"red"}}>
+									{this.state.emailError}
+								</div>
+
                             </div>
 
 
@@ -117,6 +182,11 @@ render(){
                                 onblur="this.placeholder = 'Password'"
 								value={this.state.password}
                 				onChange={this.onChange}/>
+
+								<div style={{color:"red"}}>
+									{this.state.passwordError}
+								</div>
+
                             </div>
               
 							
