@@ -52,12 +52,12 @@ class ListProdctsInStoreMangerPage extends Component {
 
                 <div className="storemain my-4 p-4 display-3">
 
-                    <span className=" py-1 m-0">Filter By Category</span>
+                    <span className="badge badge-info py-1 mx-2 p-3">Filter By Category</span>
                     <div className="storeSelectwrapper">
-                        <select className="selectcategstore"
+                        <select className="selectcategstore form-control"
 
                             required
-                            className="form-control"
+                           
                             value={this.props.TableCategoryFilter}
                             onChange={this.props.TableCategoryFilterChangeHandler}>
                             {
