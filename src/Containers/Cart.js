@@ -32,7 +32,7 @@ class Cart extends Component {
         this.loadCartProducts();
     }
     async loadCartProducts() {
-        if(Auth.getUserId()!=null){
+        if(Auth.isAuthenticated()){
         try {
             
             const res = await fetch("http://localhost:5000/cart/cartz/" + Auth.getUserId());

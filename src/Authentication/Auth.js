@@ -20,9 +20,9 @@ const isAuthenticated = () => {
 const getUserId = () => {
     let uId=null;
     const user = parseJwt(getToken());
-    if(user!=null){
-        uId =user.id;
-    }
+   
+    uId =user.id;
+    
     return uId;
 }
 
