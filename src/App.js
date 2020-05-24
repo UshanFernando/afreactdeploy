@@ -88,12 +88,11 @@ class App extends Component {
               <NavBar />
               <Category />
             </Route>
+            <Route path="*">
+              <NavBar />
+              <Home />
+            </Route>
           </Switch>
-          <Route path="*">
-            <NavBar />
-            <Home />
-          </Route>
-          />
         </Router>
       </Wrapper>
     );

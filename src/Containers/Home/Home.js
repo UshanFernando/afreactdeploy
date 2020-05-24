@@ -10,8 +10,13 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
+    let usrID = null;
+    if (Auth.isAuthenticated()) {
+      usrID = Auth.getUserId();
+    }
+
     this.state = {
-      user: Auth.getUserId(),
+      user:usrID ,
       serverAdd: "http://localhost:5000/",
       products: [],
       qty: 0,

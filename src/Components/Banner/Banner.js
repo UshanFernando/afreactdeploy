@@ -4,11 +4,11 @@ import Wrapepr from "../../Hoc/Wrapper";
 const Banner = (props) => {
   const adminNav = (
     <Wrapepr>
-      <button onClick={props.scrollAdminCategories} class="button button-login mt-4 ">
+      <button onClick={props.scrollAdminCategories} className="button button-login mt-4 ">
         {" "}
         Manage categories
       </button>
-      <button onClick={props.scrollAdminManagers} class="button button-login m-4 ">
+      <button onClick={props.scrollAdminManagers} className="button button-login m-4 ">
         Manage Store Managers
       </button>
     </Wrapepr>
