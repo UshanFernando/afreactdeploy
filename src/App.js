@@ -14,7 +14,7 @@ import Login from './Containers/Login'
 import 'font-awesome/css/font-awesome.min.css';
 import Register from './Containers/Register';
 import Category from "./Containers/Category";
-import ResetPassword from "./Containers/ResetPassword";
+import Profile from "./Containers/Profile";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 import Auth from "./Authentication/Auth";
@@ -36,7 +36,7 @@ class App extends Component {
               <Cart />
             </Route>
             <Route path="/profile">
-              <ResetPassword />
+              <Profile />
             </Route>
             <Route path="/Register">
               <NavBar />

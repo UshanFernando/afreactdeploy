@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Auth from "../Authentication/Auth";
 
 
-export class ResetPassword extends Component {
+export class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -223,4 +223,4 @@ export class ResetPassword extends Component {
   }
 }
 
-export default ResetPassword;
+export default Profile;
