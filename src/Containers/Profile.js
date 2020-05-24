@@ -209,7 +209,10 @@ export class Profile extends Component {
                       </button>
                     </div>
 
-                 
+                    <label htmlFor="sel1">Input your email here to delete the account :</label>
+                     <input type="email" id="inputEmail" name="dCusEmail" onChange={this.setDeleteEmail} value={this.state.cDeleteEmail} className="form-control" placeholder="Email address" required autoFocus></input>
+                    <button className="btn btn-md btn-danger " onClick={this.deleteCustomer} type="submit" style={{width:"180px", marginLeft:"225px"}}>Delete Account</button>
+                    
 
                    
                   </div>
