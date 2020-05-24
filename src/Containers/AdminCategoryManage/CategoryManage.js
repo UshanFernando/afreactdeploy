@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Wrapper from "../../Hoc/Wrapper";
 import CategoryList from "../../Layouts/CategoriesList/CategoriesList";
-import Auth from '../../Authentication/Auth'
+import Auth from "../../Authentication/Auth";
 
 export class CategoryManage extends Component {
   constructor(props) {
@@ -15,6 +15,8 @@ export class CategoryManage extends Component {
       categories: null,
       cUpdateEn: false,
       cUpdateId: null,
+      searchQuery: "",
+      filteredCategory: null,
     };
   }
 
@@ -30,21 +32,38 @@ export class CategoryManage extends Component {
             <h4 className="pt-4 ">Product Categories</h4>
             <div className="listScrollable">
               <CategoryList
-                categories={this.state.categories}
+                categories={this.state.filteredCategory}
                 onDelete={this.deleteCategory}
                 onUpdate={this.handleCategoryUpdate}
               />
             </div>
           </div>
-          <div className="col-sm">
+          <div className="pt-4 col-sm">
+            <h4> Search Category</h4>
+            <div className="input-group ">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="basic-addon1">
+                  <i className="fa fa-search"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="basic-addon1"
+                value={this.state.searchQuery}
+                onChange={this.searchChange}
+              />
+            </div>
             <h4 className="pt-4 ">Add New Categories</h4>
             <input
               type="text"
               className="form-control"
-              id="name"
               placeholder="Category Name"
               value={this.state.categoryName}
               onChange={this.categoryNameInputChange}
+              required="true"
             />
             <br />
             <button
@@ -61,10 +80,15 @@ export class CategoryManage extends Component {
         <hr className="mt-4 mb-4" />
       </Wrapper>
     );
-    }
-    
+  }
+
   categoryNameInputChange = (e) => {
     this.setState({ categoryName: e.target.value });
+  };
+
+  searchChange = (e) => {
+    const searchQuery = e.target.value.toLowerCase();
+    this.setState({ searchQuery }, () => this.filterList());
   };
 
   handleCategoryUpdate = (category) => {
@@ -75,12 +99,25 @@ export class CategoryManage extends Component {
     });
   };
 
+  filterList() {
+    let categories = this.state.categories;
+    let q = this.state.searchQuery;
+
+    categories = categories.filter(function (item) {
+      return item.name.toLowerCase().indexOf(q) != -1; // returns true or false
+    });
+    this.setState({ filteredCategory: categories });
+  }
+
   async addCategory() {
     if (this.state.categoryName.trim() !== 0) {
       try {
         const requestOptions = {
           method: "POST",
-          headers: { "Content-Type": "application/json", "token": Auth.getToken() },
+          headers: {
+            "Content-Type": "application/json",
+            token: Auth.getToken(),
+          },
           body: JSON.stringify({ name: this.state.categoryName }),
         };
         await fetch("http://localhost:5000/admin/category", requestOptions);
@@ -101,6 +138,8 @@ export class CategoryManage extends Component {
       //updateing state with lastest data
       this.setState({
         categories: data,
+        filteredCategory: data,
+        searchQuery: "",
       });
     } catch (e) {
       //if failed to communicate with api this code block will run
@@ -112,7 +151,7 @@ export class CategoryManage extends Component {
     try {
       const requestOptions = {
         method: "DELETE",
-        headers: { "Content-Type": "application/json","token": Auth.getToken() },
+        headers: { "Content-Type": "application/json", token: Auth.getToken() },
         body: JSON.stringify({ id: id }),
       };
       await fetch("http://localhost:5000/admin/category", requestOptions);
@@ -126,7 +165,7 @@ export class CategoryManage extends Component {
     try {
       const requestOptions = {
         method: "PUT",
-        headers: { "Content-Type": "application/json","token": Auth.getToken() },
+        headers: { "Content-Type": "application/json", token: Auth.getToken() },
         body: JSON.stringify({
           id: this.state.cUpdateId,
           name: this.state.categoryName,
