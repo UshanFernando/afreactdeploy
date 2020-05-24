@@ -7,12 +7,14 @@ export class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: Auth.getUserId(),
       customer: [],
       token: "",
       login: "",
       fName: "",
       lName: "",
       email: "",
+      Cemail: "",
       password: "",
       cDeleteEmail: "",
     };
@@ -22,6 +24,7 @@ export class Profile extends Component {
     this.setLname = this.setLname.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.setPassword = this.setPassword.bind(this);
+    this.setCemail = this.setCemail.bind(this);
     
   }
 
@@ -43,6 +46,11 @@ export class Profile extends Component {
   setPassword(event) {
     this.setState({
       password: event.target.value,
+    });
+  }
+  setCemail(event) {
+    this.setState({
+      Cemail: event.target.value,
     });
   }
 
@@ -81,7 +89,7 @@ export class Profile extends Component {
   }
 
   async updateUserDetails() {
-   console.log("sjdjsssss12")
+  
     try {
       const requestOptions = {
         method: "PUT",
@@ -98,6 +106,25 @@ export class Profile extends Component {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  async deleteCustomer() {
+  if(this.state.Cemail==this.state.email){
+    try {
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json","token":Auth.getToken() },
+        
+      };
+      await fetch("http://localhost:5000/register/register/"+this.state.user, requestOptions);
+      
+      this.loadCartProducts();
+    } catch (e) {
+      console.log(e);
+    }
+  }else{
+    alert("Please enter a valid email address!");
+  }
   }
 
 
@@ -210,8 +237,8 @@ export class Profile extends Component {
                     </div>
 
                     <label htmlFor="sel1">Input your email here to delete the account :</label>
-                     <input type="email" id="inputEmail" name="dCusEmail" onChange={this.setDeleteEmail} value={this.state.cDeleteEmail} className="form-control" placeholder="Email address" required autoFocus></input>
-                    <button className="btn btn-md btn-danger " onClick={this.deleteCustomer} type="submit" style={{width:"180px", marginLeft:"225px"}}>Delete Account</button>
+                     <input type="email" id="inputEmail" name="dCusEmail" onChange={this.setCemail} value={this.state.Cemail} className="form-control" placeholder="Email address" required autoFocus></input>
+                    <button className="btn btn-md btn-danger " onClick={()=>{if (window.confirm('This can not be undone')) this.deleteCustomer()}} type="submit" style={{width:"180px", marginLeft:"225px"}}>Delete Account</button>
                     
 
                    

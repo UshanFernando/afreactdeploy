@@ -25,10 +25,10 @@ class ProductItem extends Component {
                 </td>
 
                 <td className="storemangersecondtd">
-                    <h5>{this.props.Price}</h5>
+                    <h5>Rs {this.props.Price}</h5>
                 </td>
                 <td className="storemangersecondtd">
-                    <h5>{this.props.discount}</h5>
+                    <h5>{this.props.discount} %</h5>
                 </td>
 
 

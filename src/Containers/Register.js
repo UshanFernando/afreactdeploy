@@ -86,7 +86,7 @@ class Register extends Component {
 				utype:this.state.utype,
 				  fname: this.state.fname, 
 				  lname: this.state.lname,
-				  email: this.state.email,
+				  email: this.state.email.toLowerCase(),
 				  password: this.state.password
 				}),
 			};
