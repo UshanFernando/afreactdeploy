@@ -18,8 +18,12 @@ const isAuthenticated = () => {
 }
 
 const getUserId = () => {
+    let uId=null;
     const user = parseJwt(getToken());
-    return user.id;
+    if(user!=null){
+        uId =user.id;
+    }
+    return uId;
 }
 
 const parseJwt = (token)=> {

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Auth from '../Authentication/Auth';
-
+import { Redirect } from 'react-router-dom';
 class WishList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        user: Auth.getUserId(),
+        user:"",
+        redirrect:false,
         name: "",
         message: "",
         total: 0,
@@ -23,9 +24,10 @@ async componentDidMount() {
 }
 
 async loadCartProducts() {
+  if(Auth.getUserId()!=null){
   try {
 
-      const res = await fetch("http://localhost:5000/wishList/wishlists/" + this.state.user);
+      const res = await fetch("http://localhost:5000/wishList/wishlists/" + Auth.getUserId());
       const data = await res.json();
      
       //updateing state with lastest data
@@ -36,6 +38,11 @@ async loadCartProducts() {
       //if failed to communicate with api this code block will run
       console.log(e);
   }
+}else{
+  this.setState({
+    redirect:true
+  })
+}
 }
 async deleteWishlist(id) {
         
@@ -54,6 +61,9 @@ async deleteWishlist(id) {
 }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
 
     let wishlist;
     if (this.state.wishProducts != null) {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import Auth from '../Authentication/Auth';
 
 
@@ -7,7 +8,8 @@ class Cart extends Component {
         super(props);
 
         this.state = {
-            user: Auth.getUserId(),
+            user: "",
+            redirrect:false,
             name: "",
             message: "",
             total: 0,
@@ -30,9 +32,10 @@ class Cart extends Component {
         this.loadCartProducts();
     }
     async loadCartProducts() {
+        if(Auth.getUserId()!=null){
         try {
-
-            const res = await fetch("http://localhost:5000/cart/cartz/" + this.state.user);
+            
+            const res = await fetch("http://localhost:5000/cart/cartz/" + Auth.getUserId());
             const data = await res.json();
             let sub=0;
             data.map((item) => {
@@ -46,13 +49,15 @@ class Cart extends Component {
                 subtotal:sub
             });
 
-
-
-
         } catch (e) {
             //if failed to communicate with api this code block will run
             console.log(e);
         }
+    }else{
+        this.setState({
+            redirect:true
+          })
+    }
     }
     async deleteCart(id) {
         
@@ -162,6 +167,9 @@ class Cart extends Component {
         this.singleTotal(id);
     }
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/login" />;
+          }
 
         let cartList;
         if (this.state.cartProducts != null) {

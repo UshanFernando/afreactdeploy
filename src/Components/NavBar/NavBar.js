@@ -117,7 +117,7 @@ class NavBar extends Component {
                     <a href="/WishList">
                       <button>
                         <i className="fa fa-heart"></i>
-                        <span className="nav-shop__circle">3</span>
+                        
                       </button>
                     </a>{" "}
                   </li>
@@ -125,7 +125,7 @@ class NavBar extends Component {
                     <a href="/cart">
                       <button>
                         <i className="fa fa-shopping-cart"></i>
-                        <span className="nav-shop__circle">3</span>
+                       
                       </button>
                     </a>{" "}
                   </li>

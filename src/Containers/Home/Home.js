@@ -11,7 +11,8 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      user: Auth.getUserId(),
+      redirect:false,
+      user: "",
       serverAdd: "http://localhost:5000/",
       products: [],
       qty: 0,
@@ -39,8 +40,8 @@ class Home extends Component {
   }
   async handleWishlistSubmit(id) {
 
-
-    const res1 = await fetch("http://localhost:5000/wishList/count/" + this.state.user + "/" + id);
+    if(Auth.getUserId()!=null){
+    const res1 = await fetch("http://localhost:5000/wishList/count/" + Auth.getUserId() + "/" + id);
     const data1 = await res1.json();
     if (data1 == 0) {
 
@@ -70,9 +71,18 @@ class Home extends Component {
     } else {
       alert("You have already added this item to the Wish List");
     }
+    }else{
+      this.setState({
+        redirect:true
+      })
+      
+    }
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
     let productlist;
     if (this.state.products != null) {
 
