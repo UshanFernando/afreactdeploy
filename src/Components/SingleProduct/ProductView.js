@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import Auth from '../../Authentication/Auth';
+import { Redirect } from 'react-router-dom';
 class ProductView extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            user: Auth.getUserId(),
+            user: "",
+            redirect:false,
             qty: 1,
             id: props.pId,
             productname: "",
@@ -54,8 +56,9 @@ class ProductView extends Component {
     async handleSubmit(event) {
         event.preventDefault();
 
-
-        const res1 = await fetch("http://localhost:5000/cart/count/" + this.state.user + "/" + this.state.id);
+        if(Auth.isAuthenticated()){
+            let userId=Auth.getUserId();
+        const res1 = await fetch("http://localhost:5000/cart/count/" + userId + "/" + this.state.id);
         const data1 = await res1.json();
         
         if (data1 == 0) {
@@ -68,7 +71,7 @@ class ProductView extends Component {
                         method: "POST",
                         headers: { "Content-Type": "application/json", "token": Auth.getToken() },
                         body: JSON.stringify({
-                            user: this.state.user,
+                            user: userId,
                             product: this.state.products,
                             quantity: this.state.qty
                         }),
@@ -90,13 +93,20 @@ class ProductView extends Component {
         } else {
             alert("You have already added this product to the cart");
         }
+    }else{
+        this.setState({
+            redirect:true
+        })
+    }
 
 
 
     }
     async handleWishlistSubmit(event) {
         event.preventDefault();
-        const res1 = await fetch("http://localhost:5000/wishList/count/" + this.state.user + "/" + this.state.id);
+        if(Auth.isAuthenticated()){
+            let userId=Auth.getUserId();
+        const res1 = await fetch("http://localhost:5000/wishList/count/" + userId + "/" + this.state.id);
         const data1 = await res1.json();
        
         if (data1 == 0) {
@@ -107,7 +117,7 @@ class ProductView extends Component {
                         method: "POST",
                         headers: { "Content-Type": "application/json", "token": Auth.getToken() },
                         body: JSON.stringify({
-                            user: this.state.user,
+                            user: userId,
                             product: this.state.id,
                             quantity: this.state.qty
                         }),
@@ -129,6 +139,12 @@ class ProductView extends Component {
         } else {
             alert("You have already added this product to the Wish List");
         }
+    }else{
+        this.setState({
+            redirect:true
+        })
+
+    }
 
 
     }
@@ -149,6 +165,9 @@ class ProductView extends Component {
         }
     }
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/login" />;
+          }
 
         return (
             <div className="container">

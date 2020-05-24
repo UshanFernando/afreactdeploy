@@ -45,18 +45,19 @@ class Home extends Component {
   }
   async handleWishlistSubmit(id) {
 
-    if(Auth.getUserId()!=null){
-    const res1 = await fetch("http://localhost:5000/wishList/count/" + Auth.getUserId() + "/" + id);
+    if(Auth.isAuthenticated()){
+      let userId=Auth.getUserId() ;
+    const res1 = await fetch("http://localhost:5000/wishList/count/" + userId + "/" + id);
     const data1 = await res1.json();
     if (data1 == 0) {
 
-      if (this.state.user != null) {
+      if (this.state.products != null) {
         try {
           const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json", "token": Auth.getToken() },
             body: JSON.stringify({
-              user: this.state.user,
+              user: userId,
               product: id,
               quantity: this.state.qty
             }),

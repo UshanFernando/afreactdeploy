@@ -8,7 +8,7 @@ class CommentView extends Component {
     super(props);
 
     this.state = {
-      user: Auth.getUserId(),
+      user: "",
       productId:props.pId,
       name: "",
       message: "",
@@ -22,6 +22,11 @@ class CommentView extends Component {
       disabled: false,
       comments: []
     };
+    if(Auth.isAuthenticated()){
+      this.setState({
+        user:Auth.getUserId()
+      })
+    }
     //this.handleChange = this.handleChange.bind(this);
     this.loadComments = this.loadComments.bind(this);
     this.editComment = this.editComment.bind(this);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import StarSeries from '../SingleProduct/StarSeries';
 import Auth from '../../Authentication/Auth';
 
@@ -8,8 +9,9 @@ class CommentForm extends Component {
         super(props);
     
         this.state = {
-            user:Auth.getUserId(),
+            user:"",
             name: "",
+            redirect:false,
             message:"",
             rating:0,
             productId:props.pId,
@@ -39,6 +41,9 @@ class CommentForm extends Component {
       }
     
       async handleSubmit(event) {
+        event.preventDefault();
+        if(Auth.isAuthenticated()){
+          let userId=Auth.getUserId();
 
         if(this.state.rating==0){
           alert("Please enter a rating");
@@ -49,7 +54,7 @@ class CommentForm extends Component {
           }else {
             alert('You Have Submitted ' + this.state.rating+'  Star Rating, Thank You!');
           }
-        event.preventDefault();
+        
 
         if (this.state.name.trim() != 0) {
             try {
@@ -60,7 +65,7 @@ class CommentForm extends Component {
                     name: this.state.name,
                     message:this.state.message, 
                     rating:this.state.rating,
-                    user:this.state.user,
+                    user:userId,
                     product:this.state.productId
                   
                   }),
@@ -82,6 +87,11 @@ class CommentForm extends Component {
           }
         }
         this.props.refComments();
+      }else{
+        this.setState({
+          redirect:true
+        })
+      }
         
       }	
 
@@ -90,6 +100,9 @@ class CommentForm extends Component {
       
        
     render() {
+      if (this.state.redirect) {
+        return <Redirect to="/login" />;
+      }
         const price = this.state.rating;
         let comp;
     

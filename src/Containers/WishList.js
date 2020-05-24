@@ -24,7 +24,8 @@ async componentDidMount() {
 }
 
 async loadCartProducts() {
-  if(Auth.getUserId()!=null){
+  if(Auth.isAuthenticated()){
+    
   try {
 
       const res = await fetch("http://localhost:5000/wishList/wishlists/" + Auth.getUserId());

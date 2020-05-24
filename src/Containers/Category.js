@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import Auth from '../Authentication/Auth';
 
 
@@ -6,13 +7,20 @@ class Category extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user:Auth.getUserId(),
+            user:"",
+            redirect:false,
             serverAdd: "http://localhost:5000/",
             categories: [],
             qty:0,
             search:"",
             products: []
         };
+        if(Auth.isAuthenticated()){
+            this.setState({
+                user:Auth.getUserId()
+            })
+           
+        }
         this.loadCategories = this.loadCategories.bind(this);
         this.loadProducts = this.loadProducts.bind(this);
 
@@ -83,7 +91,7 @@ class Category extends Component {
       }
       async handleWishlistSubmit(id) {
      
-        
+        if(Auth.isAuthenticated()){
         const res1 = await fetch("http://localhost:5000/wishList/count/" + this.state.user + "/" + id);
         const data1 = await res1.json();
         if(data1==0){
@@ -115,9 +123,17 @@ class Category extends Component {
         }else{
             alert("You have already added this item to the Wish List");
         }
+    }else{
+        this.setState({
+            redirect:true
+        })
+    }
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/login" />;
+          }
         let categoryList;
         let productList;
         if (this.state.categories != null) {
